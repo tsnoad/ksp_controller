@@ -1,6 +1,9 @@
 $fn=16;
 
 expl = 0;
+$vpr = [60, 0, 45];
+$vpt = [0, 0, 75];
+$vpd = 1000;
 
 include <ksp_controller_include.scad>;
 include <ksp_controller_pivots.scad>;
@@ -9,9 +12,9 @@ include <ksp_controller_module_attitude.scad>;
 //attitude assembly
 union() {
     translate([0,0,48-16]) {
-        rotate([0*atan((20.8-18.3)/20),0,0]) {
+        rotate([sin($t*360)*atan((20.8-18.3)/20),0,0]) {
             translate([0,0,expl*3]) piv_out();
-            rotate([0,0*atan((20.8-18.3)/20),0]) {
+            rotate([0,sin($t*360+90)*atan((20.8-18.3)/20),0]) {
                 translate([0,0,expl*5]) piv_in();
                 translate([0,0,expl*6]) difference() {
                     hull() {
