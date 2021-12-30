@@ -14,6 +14,6 @@ include <ksp_controller_module_attitude.scad>;
 
 //caution and warning assembly
 translate([0,0,0]) {
-    translate([0,0,expl*6]) cw_box_lid();
-    *translate([0,0,expl*-2]) att_box_frame();
+    translate([0,0,expl*6]) translate([0,0,64]) cw_box_lid();
+    *translate([0,0,expl*-2]) box_frame(70,70,60,60+40+5,64);
 }

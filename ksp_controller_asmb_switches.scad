@@ -14,5 +14,6 @@ include <ksp_controller_module_attitude.scad>;
 
 //switches assembly
 translate([0,0,0]) {
-    switch_box_lid();
+    translate([0,0,64]) switch_box_lid();
+    *box_frame(70,70,60,60+40+5,64);
 }

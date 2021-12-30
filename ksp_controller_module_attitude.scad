@@ -20,12 +20,21 @@ module att_box_frame() {
         }
         
         //central cutout
-        hull() for(i=[0,1]) mirror([i,0,0]) for(j=[0,1]) mirror([0,j,0]) {
+        *hull() for(i=[0,1]) mirror([i,0,0]) for(j=[0,1]) mirror([0,j,0]) {
             translate([(20-2.5),(20-2.5),-1]) cylinder(r=2.5,h=100);
         }
         
+        //central cutout for actuator movement, also acts as a stop
+        translate([0,0,64-16]) {
+            hull() for(i=[0,1]) mirror([0,i,0]) for(j=[0,1]) mirror([j,0,0]) {
+                rotate([0,-ms_p_a,0]) rotate([ms_p_a,0,0]) {
+                    translate([8-2,8-2,-100]) cylinder(r=2+0.25,h=100-10);
+                }
+            }
+        }
+        
         //bearing clearance co
-        intersection() {
+        *intersection() {
             translate([0,0,64-16]) rotate([0,0,90]) {
                 translate([0,brh,0]) sep_co(8+12);
                 translate([0,-brh,0]) sep_co(8+12);
@@ -48,7 +57,7 @@ module att_box_frame() {
         }
         
         //front bolt co
-        for(i=[0,1]) mirror([i,0,0]) {
+        *for(i=[0,1]) mirror([i,0,0]) {
             for(j=[0,1]) mirror([0,j,0]) {
                 translate([(60-7.5),12.5,0]) front_nut_co();
             }
@@ -56,7 +65,7 @@ module att_box_frame() {
         }
         
         //switch cavity co
-        hull() for(i=[0,1]) mirror([i,0,0]) {
+        *hull() for(i=[0,1]) mirror([i,0,0]) {
             translate([(60-15-2.5),-(60+20-20+2.5),-1]) cylinder(r=2.5,h=100);
             translate([(60-5-2.5),-(60+20-10+2.5),-1]) cylinder(r=2.5,h=100);
             
@@ -97,7 +106,7 @@ module att_box_frame() {
                 }
             }*/
             
-            for(j=[0,1]) mirror([0,j,0]) translate([-20,-5,5]) bevel_co(2.5);
+            *for(j=[0,1]) mirror([0,j,0]) translate([-20,-5,5]) bevel_co(2.5);
             
             hull() {
                 translate([0,0,5]) cylinder(r=5,h=50);
@@ -111,7 +120,7 @@ module att_box_frame() {
         }
         
         //ms bolt co
-        ms_spacing() ms_co_spacing() {
+        *ms_spacing() ms_co_spacing() {
             translate([0,0,-1]) cylinder(r=m3_v_r,h=50);
             translate([0,0,-50+10+6.85-2]) intersection() {
                 cylinder(r=2.5+0.5,h=50);
@@ -121,7 +130,8 @@ module att_box_frame() {
                 }
             }
         }
-        for(i=[0,1]) mirror([i,0,0]) {
+        
+        *for(i=[0,1]) mirror([i,0,0]) {
             for(j=[0,1]) mirror([0,j,0]) {
                 translate([25,0,10+6.85+6]) rotate([90,0,0]) hull() {
                     cylinder(r=6,h=100);

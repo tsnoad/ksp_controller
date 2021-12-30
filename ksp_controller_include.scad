@@ -68,6 +68,16 @@ module box_lid_bolt_c_co() {
     }
 }
 
+
+module box_lid_bolt_i_co() {
+    union() {
+        hull() {
+            translate([0,0,2.5]) cylinder(r=7.5-2.5,h=10);
+            translate([0,0,2.5+2.5]) cylinder(r=7.5,h=10-2.5);
+        }
+    }
+}
+
 module box_frame(x_p=60,x_n=60,y_p=60,y_n=60,z_h=48) difference() {
     hull() {
         translate([(x_p-5),(y_p-5),0]) cylinder(r=5,h=z_h);
