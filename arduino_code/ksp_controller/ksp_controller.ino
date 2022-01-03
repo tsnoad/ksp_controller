@@ -1,6 +1,6 @@
 #include <Keyboard.h>
 
-int trans_inout_brown = 3;
+/*int trans_inout_brown = 3;
 int trans_inout_red = 2;
 int trans_cont_white = 7;
 int trans_cont_brown = 6;
@@ -26,20 +26,20 @@ char trans_out_key = 'h';
 char trans_left_key = 'j';
 char trans_right_key = 'l';
 char trans_up_key = 'i';
-char trans_down_key = 'k';
+char trans_down_key = 'k';*/
 
 //pin 8 does not work
 //pin 11 does not work
 
-//int att_roll_
-//int att_roll_
-int att_red = 13;
-int att_yellow = 12;
-int att_blue = 10;
-int att_gray = 9;
+int att_rollleft_orange = 6;
+int att_rollright_brown = 7;
+int att_red = 5;
+int att_yellow = 4;
+int att_blue = 3;
+int att_gray = 2;
 
-//int att_rollleft
-//int att_rollright
+int att_rollleft = att_rollleft_orange;
+int att_rollright = att_rollright_brown;
 int att_left = att_gray;
 int att_right = att_yellow;
 int att_up = att_blue;
@@ -62,15 +62,15 @@ char att_down_key = 's';
 
 
 void setup() {
-  pinMode(trans_in, INPUT_PULLUP);
+  /*pinMode(trans_in, INPUT_PULLUP);
   pinMode(trans_out, INPUT_PULLUP);
   pinMode(trans_left, INPUT_PULLUP);
   pinMode(trans_right, INPUT_PULLUP);
   pinMode(trans_up, INPUT_PULLUP);
-  pinMode(trans_down, INPUT_PULLUP);
+  pinMode(trans_down, INPUT_PULLUP);*/
   
-  //pinMode(att_rollleft, INPUT_PULLUP);
-  //pinMode(att_rollright, INPUT_PULLUP);
+  pinMode(att_rollleft, INPUT_PULLUP);
+  pinMode(att_rollright, INPUT_PULLUP);
   pinMode(att_left, INPUT_PULLUP);
   pinMode(att_right, INPUT_PULLUP);
   pinMode(att_up, INPUT_PULLUP);
@@ -80,7 +80,7 @@ void setup() {
 }
 
 void loop() {
-  if (trans_in_active != (digitalRead(trans_in) == LOW)) {
+  /*if (trans_in_active != (digitalRead(trans_in) == LOW)) {
     if (digitalRead(trans_in) == LOW) {
       trans_in_active = true;
       Keyboard.press(trans_in_key);
@@ -137,6 +137,27 @@ void loop() {
     } else {
       trans_down_active = false;
       Keyboard.release(trans_down_key);
+    }
+  }*/
+
+
+
+  if (att_rollleft_active != (digitalRead(att_rollleft) == LOW)) {
+    if (digitalRead(att_rollleft) == LOW) {
+      att_rollleft_active = true;
+      Keyboard.press(att_rollleft_key);
+    } else {
+      att_rollleft_active = false;
+      Keyboard.release(att_rollleft_key);
+    }
+  }
+  if (att_rollright_active != (digitalRead(att_rollright) == LOW)) {
+    if (digitalRead(att_rollright) == LOW) {
+      att_rollright_active = true;
+      Keyboard.press(att_rollright_key);
+    } else {
+      att_rollright_active = false;
+      Keyboard.release(att_rollright_key);
     }
   }
 
