@@ -1,6 +1,9 @@
 $fn=36;
 
 
+include <ksp_controller_include.scad>;
+
+
 r3 = 125;
 a_o = 8;
 a_h = 27.5; //height of thumb-side section
@@ -187,7 +190,7 @@ difference() {
             hull() {
                 translate([6-50,0,0]) cylinder(r=12,h=35);
                 translate([6,0,0]) cylinder(r=12,h=35);
-                translate([6-50,20/tan(30),0]) cylinder(r=12,h=35);
+                translate([6-50,50/tan(30),0]) cylinder(r=12,h=35);
             }
             translate([6+4-ba_o,-50,0]) cube([100,100,100]);
         }
@@ -196,11 +199,14 @@ difference() {
     translate([6+4,45+7.5,-((32-12)*sin(30)-25-(12))]) rotate([90,0,0]) translate([0,12,90]) switch_co();
     
     for(i=[0,1]) mirror([i,0,0]) translate([(8+4),0,-1]) {
-        cylinder(r=2+0.25,h=4+4+8);
-        //translate([0,0,4]) hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=0.5,h=4+4+8);
-        translate([0,0,4]) cylinder(r=3.5/cos(30)+0.5,h=8);
-        translate([0,0,4+8]) sphere(r=3.5/cos(30)+0.5);
-        translate([0,0,4+8]) rotate([0,0,0]) cylinder(r=3.5/cos(30)+0.5,h=200);
+        hull() {
+            cylinder(r=m4_h_r,h=4+4+8);
+            translate([-(m4_h_r)*tan(22.5),-(m4_h_r),0]) cube([2*(m4_h_r)*tan(22.5),2*(m4_h_r),50]);
+        }
+        hull() {
+            translate([0,0,4]) rotate([0,0,0]) cylinder(r=5+0.25,h=200);
+            translate([-(5+0.25)*tan(22.5),-(5+0.25),4]) cube([2*(5+0.25)*tan(22.5),2*(5+0.25),50]);
+        }
     }
 }
 
@@ -330,8 +336,14 @@ module switch_co() {
         translate([+1,6,-0.5-1.75]) cylinder(r=1,h=50);
     }
     
-    translate([0,0,-150]) hull() {
-        cylinder(r=body_co_r,h=150-0.5-3);
-        translate([-body_co_r*tan(22.5),-body_co_r,0]) cube([2*body_co_r*tan(22.5),2*body_co_r,150-0.5-2.5]);
+    translate([0,0,-150]) intersection() {
+        hull() {
+            cylinder(r=body_co_r,h=150-0.5-3);
+            *translate([-body_co_r*tan(22.5),-body_co_r,0]) cube([2*body_co_r*tan(22.5),2*body_co_r,150-0.5-2.5]);
+        }
+        union() {
+            translate([-body_co_r,-body_co_r,0]) cube([body_co_r*2,body_co_r*2,150-0.5-3-0.2]);
+            translate([-(3+0.25),-body_co_r,0]) cube([(3+0.25)*2,body_co_r*2,150-0.5-3]);
+        }
     }
 }

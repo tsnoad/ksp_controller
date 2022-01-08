@@ -11,6 +11,23 @@ m4n_h_r = 3.5+0.0625; // radius for M4 nut cutouts (horizontal to buildplate)
 m3_v_r = 1.5+0.125; // radius for M3 cutouts (vertical to buildplate)
 m3n_v_r = 2.75+0.125; // radius for M3 nut cutouts (vertical to buildplate)
 
+ms_xt = 2; //extra travel (before contact with lever)
+
+
+ms_pt = 1.6; //microswitch pre-travel
+ms_ot = 0.8; //microswitch over-travel
+
+
+ms_ptot = ms_xt + ms_pt + ms_ot;
+ms_os = 26; //vertical offset from pivot to microswitches
+
+//echo(asin((ms_pt + ms_ot)/26)); //angle of switch actuation without extra travel
+//echo(sin(8) * 26 - (ms_pt)); //extra travel to meet operating travel at 10 degrees
+echo(asin((ms_pt+ms_xt)/26));
+echo(asin((ms_pt+ms_xt+ms_ot)/26));
+
+ms_p_a = atan(ms_ptot/ms_os);
+
 module front_nut_co() {
         translate([0,0,-1]) {
         cylinder(r=m4_v_r,h=100);
@@ -78,6 +95,16 @@ module box_lid_bolt_i_co() {
     }
 }
 
+module box_lid_bolt_i2_co(i=[-10,10]) {
+    hull() for(j=i) {
+        translate([0,j,2.5]) cylinder(r=7.5-2.5,h=10);
+    }
+    hull() for(j=i) {
+        translate([0,j,2.5+1.25]) cylinder(r=7.5-2.5,h=10);
+        translate([0,j,2.5+1.25+1.25]) cylinder(r=7.5-2.5+1.25,h=10-1.25);
+    }
+}
+
 module box_frame(x_p=60,x_n=60,y_p=60,y_n=60,z_h=48) difference() {
     hull() {
         translate([(x_p-5),(y_p-5),0]) cylinder(r=5,h=z_h);
@@ -86,10 +113,10 @@ module box_frame(x_p=60,x_n=60,y_p=60,y_n=60,z_h=48) difference() {
         translate([-(x_n-5),-(y_n-5),0]) cylinder(r=5,h=z_h);
     }
     
-    translate([(x_p-7.5),(y_p-7.5),0]) front_nut_co();
-    translate([-(x_n-7.5),(y_p-7.5),0]) front_nut_co();
-    translate([(x_p-7.5),-(y_n-7.5),0]) front_nut_co();
-    translate([-(x_n-7.5),-(y_n-7.5),0]) front_nut_co();
+    *translate([(x_p-7.5),(y_p-7.5),0]) front_nut_co();
+    *translate([-(x_n-7.5),(y_p-7.5),0]) front_nut_co();
+    *translate([(x_p-7.5),-(y_n-7.5),0]) front_nut_co();
+    *translate([-(x_n-7.5),-(y_n-7.5),0]) front_nut_co();
     
     *hull() for(i=[0,1]) mirror([0,i,0]) {
         translate([(50+40+30-5),(60-5),-1]) cylinder(r=0.05,h=z_h+2);
@@ -198,45 +225,122 @@ module screw() {
     cylinder(r=3.5,h=4);
 }
 
-module ms() translate([-27.7-8.8,20.8-10.4,-10.3/2]) {
+module ms() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),-10.3/2]) {
     difference() {
-        hull() {
-            cylinder(r=2.75,h=10.3);
-            translate([22.2,0,0]) cylinder(r=2.75,h=10.3);
-            translate([0,10.4,0]) cylinder(r=2.75,h=10.3);
-            translate([22.2,10.4,0]) cylinder(r=2.75,h=10.3);
+        union() {
+            //body
+            hull() {
+                translate([0,0,0]) cylinder(r=2.8,h=10.3);
+                translate([22.2,0,0]) cylinder(r=2.8,h=10.3);
+                translate([0,-10.3,0]) cylinder(r=2.8,h=10.3);
+                translate([22.2,-10.3,0]) cylinder(r=2.8,h=10.3);
+            }
+            
+            //connectors
+            *hull() {
+                translate([-2.8+1,2.8-4-1,0]) cylinder(r=1,h=10.3);
+                translate([-2.8+1,2.8-4-9+1,0]) cylinder(r=1,h=10.3);
+                translate([-2.8-10-1,2.8-4-1,0]) cylinder(r=1,h=10.3);
+                translate([-2.8-10-1,2.8-4-9+1,0]) cylinder(r=1,h=10.3);
+            }
+            *hull() {
+                translate([-2.8+4+1,-10.3-2.8+1,0]) cylinder(r=1,h=10.3);
+                translate([-2.8+4+15-1,-10.3-2.8+1,0]) cylinder(r=1,h=10.3);
+                translate([-2.8+4+1,-10.3-2.8-10-1,0]) cylinder(r=1,h=10.3);
+                translate([-2.8+4+15-1,-10.3-2.8-10-1,0]) cylinder(r=1,h=10.3);
+            }
+            
+            //actuator
+            hull() {
+                translate([20.1,20.7-10.3-2,0]) cylinder(r=2,h=10.3);
+                translate([20.1,2.8,0]) cylinder(r=2,h=10.3);
+            }
+            hull() {
+                translate([8.1+1,15.9-10.3-1,0]) cylinder(r=1,h=10.3);
+                translate([20.1+2-1,15.9-10.3-1,0]) cylinder(r=1,h=10.3);
+                translate([8.1+1,2.8-1,0]) cylinder(r=1,h=10.3);
+                translate([20.1+2-1,2.8-1,0]) cylinder(r=1,h=10.3);
+            }
+            
         }
+        //bolt hole cos
         translate([0,0,-1]) cylinder(r=1.5,h=20);
-        translate([22.2,10.4,-1]) cylinder(r=1.5,h=20);
-    }
-    translate([8.8+1,-18.3+10.4,(10.3-5)/2]) rotate([0,0,-atan((20.8-18.3)/27.8)]) {
-        cube([27.8-1,2,5]);
-        translate([0,1,0]) cylinder(r=1,h=5);
-        translate([27.7-1,1,0]) cylinder(r=1,h=5);
-        translate([-1,1,0]) cube([2,10,5]);
+        translate([22.2,-10.3,-1]) cylinder(r=1.5,h=20);
     }
 }
 
-module ms_spacing() {
-    for(i=[0:3]) rotate([0,0,i*90]) translate([2,-2,0]) translate([4,8,0]) children();
+module ms_spacing(i) {
+    rotate([0,0,i*90]) translate([0,-8-ms_xt,0]) children();
 }
 
-module ms_co_spacing() {
-    translate([-27.7-8.8,20.8-10.4,0]) {
-        translate([0,0,0]) children();
-        translate([22.2,10.4,0]) children();
-    }
+module ms_co_spacing() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),0]) {
+    //bolt hole cos
+    translate([0,0,0]) children();
+    translate([22.2,-10.3,0]) children();
 }
 
-module ms_co() translate([-27.7-8.8,20.8-10.4,-10.3/2]) {
+module ms_bco() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),-10.3/2]) {
+    xr = 0.5;
+    
+    //body
     hull() {
-        translate([0,0,-4]) cylinder(r=0.5,h=10.3+8);
-        translate([0,0,-4+1]) cylinder(r=1.5,h=10.3+6);
+        translate([0,0,0]) cylinder(r=2.8+xr,h=10.3);
+        translate([22.2,0,0]) cylinder(r=2.8+xr,h=10.3);
+        translate([0,-10.3,0]) cylinder(r=2.8+xr,h=10.3);
+        translate([22.2,-10.3,0]) cylinder(r=2.8+xr,h=10.3);
     }
-    translate([22.2,10.4,0]) hull() {
-        translate([0,0,-4]) cylinder(r=0.5,h=10.3+8);
-        translate([0,0,-4+1]) cylinder(r=1.5,h=10.3+6);
+    
+    //connectors
+    hull() {
+        translate([-2.8+1,-1,0]) {
+            cylinder(r=1+xr,h=10.3);
+            translate([0,0,10.3+(10+1+1)*tan(45)]) sphere(r=1+xr);
+        }
+        translate([-2.8+1,-10.3+1,0]) {
+            cylinder(r=1+xr,h=10.3);
+            translate([0,0,10.3+(10+1+1)*tan(45)]) sphere(r=1+xr);
+        }
+        translate([-2.8-10-1,-1,0]) {
+            cylinder(r=1+xr,h=10.3);
+            translate([0,0,10.3]) sphere(r=1+xr);
+        }
+        translate([-2.8-10-1,-10.3+1,0]) {
+            cylinder(r=1+xr,h=10.3);
+            translate([0,0,10.3]) sphere(r=1+xr);
+        }
     }
+    hull() {
+        translate([2.8+1,-10.3-2.8+1,1.6]) {
+            cylinder(r=1+xr,h=10.3-1.6);
+            translate([0,0,10.3-1.6+(5+1+1)*tan(45)]) sphere(r=1+xr);
+        }
+        translate([22.2-1,-10.3-2.8+1,1.6]) {
+            cylinder(r=1+xr,h=10.3-1.6);
+            translate([0,0,10.3-1.6+(5+1+1)*tan(45)]) sphere(r=1+xr);
+        }
+        translate([2.8+1,-10.3-2.8-5-1,1.6]) {
+            cylinder(r=1+xr,h=10.3-1.6);
+            translate([0,0,10.3-1.6]) sphere(r=1+xr);
+        }
+        translate([22.2-1,-10.3-2.8-5-1,1.6]) {
+            cylinder(r=1+xr,h=10.3-1.6);
+            translate([0,0,10.3-1.6]) sphere(r=1+xr);
+        }
+    }
+    
+    //actuator
+    hull() {
+        translate([2.8+1,2.8+15-1,1.6]) cylinder(r=1+xr,h=10.3-1.6);
+        translate([22.2-1,2.8+15-1,1.6]) cylinder(r=1+xr,h=10.3-1.6);
+        translate([2.8+1,2.8-1,1.6]) cylinder(r=1+xr,h=10.3-1.6);
+        translate([22.2-1,2.8-1,1.6]) cylinder(r=1+xr,h=10.3-1.6);
+    }
+}
+
+module ms_co() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),-10.3/2]) {
+    //bolt hole cos
+    translate([0,0,-1]) cylinder(r=1.5,h=20);
+    translate([22.2,-10.3,-1]) cylinder(r=1.5,h=20);
 }
 
 module bevel_co(r=5) difference() {
@@ -247,4 +351,100 @@ module bevel_co(r=5) difference() {
 module bevel_co45(r=5) difference() {
     translate([-(r-sqrt(pow(r,2)/2)),-r*tan(22.5),0]) cube([10,10,100]);
     translate([-r,-r*tan(22.5),-1]) cylinder(r=r,h=102);
+}
+
+module ard_micro_co() translate([0,-2+0.75,0]) {
+    //pcb co
+    hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
+        translate([17.5/2,0,-1]) cylinder(r=0.75,h=1.6);
+        translate([17.5/2,32.5,-1]) cylinder(r=0.75,h=1.6+2);
+        translate([17.5/2,2,-1]) cylinder(r=0.75,h=1.6+2);
+    }
+        
+    //co for end of pin headers
+    for(ixm=[0,1]) mirror([ixm,0,0]) hull() for(iy=[2.54,32.5]) {
+        translate([15.2/2-0.5,iy,-1-2.5]) cylinder(r=0.75,h=1.6+2.5);
+        translate([15.2/2+2.54+0.5,iy,-1-2.5]) cylinder(r=0.75,h=1.6+2.5);
+    }
+    
+    //hold-down bolt co
+    translate([0,32.5+0.75+m3_v_r+1.6,-25]) cylinder(r=m3_v_r,h=50);
+    translate([0,32.5+0.75+m3_v_r+1.6,-50-1-2]) {
+        cylinder(r=2.5+0.5,h=50-0.4);
+        translate([-m3_v_r,-m3_v_r,0]) cube([2*m3_v_r,2*m3_v_r,50]);
+        translate([-sqrt(pow(2.5+0.5,2)-pow(m3_v_r,2)),-m3_v_r,0]) cube([2*sqrt(pow(2.5+0.5,2)-pow(m3_v_r,2)),2*m3_v_r,50-0.2]);
+    }
+    
+    //cable co
+    hull() for(ix=[(6-2),-(6-2)]) for(iz=[(4-2),-(4-2)]) translate([ix,-0.75+2+0.01,-1+3+iz]) rotate([90,0,0]) {
+        cylinder(r=2,h=50);
+        translate([-2*tan(22.5),-2,0]) cube([2*2*tan(22.5),2*2,50]);
+    }
+}
+
+module m4_co(thread_length=25, thread_horiz=false, head_offset=0, nut_offset=false, head_overhung=false, nut_overhung=false) {
+    if(thread_horiz) {
+        translate([0,0,-thread_length+head_offset])hull() {
+            cylinder(r=m4_h_r,h=thread_length+4);
+            translate([-m4_h_r*tan(22.5),-m4_h_r,0]) cube([2*m4_h_r*tan(22.5),2*m4_h_r,thread_length+4]);
+        }
+    } else {
+        translate([0,0,-thread_length+head_offset]) cylinder(r=m4_v_r,h=thread_length+4);
+    }
+    
+    if(thread_horiz) {
+        translate([0,0,head_offset]) hull() {
+            cylinder(r=4,h=4+50);
+            translate([-4*tan(22.5),-4,0]) cube([2*4*tan(22.5),2*4,4+50]);
+        }
+    } else if(head_overhung) {
+        translate([0,0,head_offset+0.4]) cylinder(r=4,h=4+50-0.4);
+        translate([-m4_v_r,-m4_v_r,head_offset]) cube([2*m4_v_r,2*m4_v_r,50]);
+        translate([-sqrt(pow(4,2)-pow(m4_v_r,2)),-m4_v_r,head_offset+0.2]) cube([2*sqrt(pow(4,2)-pow(m4_v_r,2)),2*m4_v_r,4+50-0.2]);
+        
+    } else {
+        translate([0,0,head_offset]) cylinder(r=4,h=4+50);
+    }
+    
+    if(nut_offset) {
+        if(nut_overhung) {
+            translate([0,0,-50-nut_offset-0.2]) hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50-0.2);
+            
+            translate([0,0,-50-nut_offset]) hull() for(i=[0:2]) rotate([0,0,i*120]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50);    
+            
+        } else {
+            translate([0,0,-50-nut_offset]) hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50);
+        }
+    }
+}
+
+module m4_endnut_co() {
+    //washer co
+    hull() {
+        rotate([90,0,0]) cylinder(r=5,h=1.75);
+        translate([0,0,8]) rotate([90,0,0])  cylinder(r=5,h=1.75);
+    }
+        
+    //nut co
+    hull() {
+        translate([0,0,-1]) rotate([90,0,0]) cylinder(r=m4n_h_r,h=9+5);
+        translate([0,0,8]) rotate([90,0,0]) cylinder(r=m4n_h_r,h=9+5);
+    }
+}
+
+module m4_endnut_b_co() {
+    //washer co
+    hull() {
+        rotate([90,0,0]) cylinder(r=5,h=1.75);
+        translate([0,0,8]) rotate([90,0,0])  cylinder(r=5,h=1.75);
+    }
+        
+    //nut co
+    hull() {
+        translate([0,0,-1]) rotate([90,0,0]) cylinder(r=m4n_h_r,h=9);
+        translate([0,0,8]) rotate([90,0,0]) cylinder(r=m4n_h_r,h=9);
+        
+        translate([0,0,-1]) rotate([90,0,0]) cylinder(r=m4n_h_r-1,h=9+1);
+        translate([0,0,8]) rotate([90,0,0]) cylinder(r=m4n_h_r-1,h=9+1);
+    }
 }
