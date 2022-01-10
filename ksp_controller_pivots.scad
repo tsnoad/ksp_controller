@@ -426,6 +426,35 @@ module camactutor() {
             translate([0,0,-1]) rotate([90,0,0]) translate([0,0,8]) cylinder(r=m4n_h_r-1,h=9+1);
             translate([0,0,8]) rotate([90,0,0]) translate([0,0,8]) cylinder(r=m4n_h_r-1,h=9+1);
         }
+        
+        //cable routing cutout
+        hull() {
+            translate([0,0,35]) sphere(r=5);
+            translate([0,0,35-6]) {
+                sphere(r=5);
+                translate([0,-5*tan(22.5),0]) rotate([-90,0,0]) cylinder(r=5,h=2*5*tan(22.5));
+            }
+        }
+        hull() {
+            translate([0,0,35-6]) {
+                sphere(r=5);
+                translate([0,-5*tan(22.5),0]) rotate([-90,0,0]) cylinder(r=5,h=2*5*tan(22.5));
+            }
+            translate([6,0,35-6-6]) {
+                sphere(r=5);
+                translate([0,-5*tan(22.5),0]) rotate([-90,0,0]) cylinder(r=5,h=2*5*tan(22.5));
+            }
+        }
+        hull() {
+            translate([6,0,35-6-6]) {
+                sphere(r=5);
+                translate([0,-5*tan(22.5),0]) rotate([-90,0,0]) cylinder(r=5,h=2*5*tan(22.5));
+            }
+            translate([12,0,35-6-6]) {
+                sphere(r=5);
+                translate([0,-5*tan(22.5),0]) rotate([-90,0,0]) cylinder(r=5,h=2*5*tan(22.5));
+            }
+        }
     }
 }
 
