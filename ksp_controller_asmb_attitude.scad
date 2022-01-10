@@ -26,7 +26,7 @@ union() {
     rotate([piv_b,0,0]) {
         rotate([0,piv_a,0]) {
             piv_in();
-            translate([0,0,8]) camactutor();
+            translate([0,0,8]) !camactutor();
             translate([0,brh+8+8,8+8+6]) {
                 rotate([90,0,0]) cylinder(r=6.5,h=8);
             }
