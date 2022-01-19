@@ -45,95 +45,63 @@ module cw_box_lid() {
     }
 }
 
-module cw_box_frame() {
-    difference() {
-        *box_frame(70,70,60,60+40+5,64);
-        union() {
-            for(ixm=[0,1]) mirror([ixm,0,0]) {
-                *hull() for(iy=[(60-5),(60-5-15)]) {
-                    translate([70-5,iy,0]) cylinder(r=5,64);
-                    translate([70-5-5,iy,0]) cylinder(r=5,64);
-                }
-                
-                *hull() for(iy=[-(40+5)/2+7.5,-(40+5)/2-7.5]) {
-                    translate([70-5,iy,0]) cylinder(r=5,64);
-                    translate([70-5-5,iy,0]) cylinder(r=5,64);
-                }
-                
-                *hull() for(iy=[-(60+40+5-5-15),-(60+40+5-5)]) {
-                    translate([70-5,iy,0]) cylinder(r=5,64);
-                    translate([70-5-5,iy,0]) cylinder(r=5,64);
-                }
-                
-                hull() for(iy=[(60-5),-(60+40+5-5)]) {
-                    translate([70-5,iy,0]) cylinder(r=5,64);
-                    translate([70-5-5,iy,0]) cylinder(r=5,64);
-                }
-            }
-            hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
-                for(iy=[(60-5),-(60+40+5-5)]) {
-                    translate([70-5,iy,0]) cylinder(r=5,2.5);
-                }
-            }
-            
-            hull() for(ix=[(70-5),(70-5)-50]) for(iy=[-(60+40+5-5)+40,-(60+40+5-5)]) {
-                translate([ix,iy,0]) cylinder(r=5,7.5);
-            }
-            hull() for(ix=[(70-5),(70-5)-50]) for(iy=[-(60+40+5-5)]) {
-                translate([ix,iy,0]) cylinder(r=5,20);
-            }
+module cw_box_frame() difference() {
+    union() {
+        difference() {
+            box_frame(70,70,60,60+40+5,80);
+            translate([-(70-5),-(60-5)-(40+5),-1]) cube([2*(70-5),2*(60-5)+40+5,100]);
         }
         
-        mc_o = 12;
+        hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
+            translate([-(20-5),-(60-5)-(40+5),0]) cylinder(r=5,h=7.5);
+            translate([-(20-5),-(60-5)-(40+5)+40,0]) cylinder(r=5,h=7.5);
+        }
+        
+        intersection() {
+            box_frame(70,70,60,60+40+5,80);
+            
+            union() {
+                for(iy=[60-7.5]) for(ixm=[0,1]) mirror([ixm,0,0]) {
+                    translate([70-7.5,iy,0]) hull() {
+                        cylinder(r=7.5,h=80);
+                        
+                        translate([20,-20,0]) cylinder(r=7.5,h=80);
+                        translate([-20,20,0]) cylinder(r=7.5,h=80);
+                        
+                        translate([20,20,0]) cylinder(r=7.5,h=80);
+                    }
+                }
+                for(iy=[(60+40+5-7.5)]) mirror([0,1,0]) for(ixm=[0,1]) mirror([ixm,0,0]) {
+                    translate([70-7.5,iy,0]) hull() {
+                        cylinder(r=7.5,h=80);
+                        
+                        translate([20,-20,0]) cylinder(r=7.5,h=80);
+                        translate([-20,20,0]) cylinder(r=7.5,h=80);
+                        
+                        translate([20,20,0]) cylinder(r=7.5,h=80);
+                    }
+                }
+                for(iy=[-(40+5)/2]) for(ixm=[0,1]) mirror([ixm,0,0]) {
+                    translate([70-7.5,iy,0]) hull() {
+                        cylinder(r=7.5,h=80);
+                        
+                        translate([20,-20,0]) cylinder(r=7.5,h=80);
+                        translate([20,20,0]) cylinder(r=7.5,h=80);
+                    }
+                }
+            }
+        }
+    }
+    //arduino co
+    translate([0,-(60+40+5)+5,7.5]) ard_micro_co();
     
-        //main cavity co
-        *difference() {
-            translate([0,0,2.5]) {
-                hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
-                    translate([70-5-2.5-mc_o,60-5-2.5,0]) cylinder(r=2.5,100);
-                    translate([70-5-2.5-mc_o,-((60+40+5)-5-2.5),0]) cylinder(r=2.5,100);
-                }
-                for(ixm=[0,1]) mirror([ixm,0,0]) translate([70-5-mc_o,60-5-mc_o,0]) rotate([0,0,180]) bevel_co(r=7.5);
-                
-                hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
-                    translate([70-5-2.5,60-5-2.5-mc_o,0]) cylinder(r=2.5,100);
-                    translate([70-5-2.5,-((40+5)/2-mc_o),0]) cylinder(r=2.5,100);
-                }
-                for(ixm=[0,1]) mirror([ixm,0,0]) translate([70-5-mc_o,-((40+5)/2+2.5-mc_o),0]) mirror([0,1,0]) rotate([0,0,180]) bevel_co(r=7.5);
-                for(ixm=[0,1]) mirror([ixm,0,0]) translate([70-5-mc_o,-((40+5)/2-2.5+mc_o),0]) rotate([0,0,180]) bevel_co(r=7.5);
-                
-                hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
-                    translate([70-5-2.5,-((60+40+5)-5-2.5-mc_o),0]) cylinder(r=2.5,100);
-                    translate([70-5-2.5,-((40+5)/2+mc_o),0]) cylinder(r=2.5,100);
-                }
-                for(ixm=[0,1]) mirror([ixm,0,0]) translate([70-5-mc_o,-((60+40+5)-5-mc_o),0]) mirror([0,1,0]) rotate([0,0,180]) bevel_co(r=7.5);
-            }
-            hull() {
-                translate([(70-7.5),-(60+40+5-7.5),0]) cylinder(r=7.5,h=7.5);
-                translate([(70-7.5),-(60+40+5)+40,0]) cylinder(r=7.5,h=7.5);
-                translate([(70)-40-15,-(60+40+5-7.5),0]) cylinder(r=7.5,h=7.5);
-                translate([(70)-40-15,-(60+40+5)+40,0]) cylinder(r=7.5,h=7.5);
-            }
+    
+    //front bolt co
+    for(i=[0,1]) mirror([i,0,0]) {
+        for(j=[(60-7.5),-(40+5)/2,-(60+40+5-7.5)]) {
+            translate([(70-7.5),j,0]) front_nut_co();
+            *translate([(70-7.5),j,64-30])  cylinder(r=m4_v_r,h=50);
         }
-        
-        hull() translate([0,60-(60+40+50)/4,0]) for(ixm=[0,1]) mirror([ixm,0,0]) for(iy=[((60+40+50)/4-20),-((60+40+50)/4)]) {
-            translate([70-25,iy,-1]) cylinder(r=5,100);
-        }
-        hull() translate([0,60-(60+40+50)*3/4,0]) for(ixm=[0,1]) mirror([ixm,0,0]) for(iy=[((60+40+50)/4-20),-((60+40+50)/4)]) {
-            translate([(70-25)*ixm,iy,-1]) cylinder(r=5,100);
-        }
-        
-            
-        //front bolt co
-        for(i=[0,1]) mirror([i,0,0]) {
-            for(j=[(60-7.5),-(40+5)/2,-(60+40+5-7.5)]) {
-                *translate([(70-7.5),j,0]) front_nut_co();
-                translate([(70-7.5),j,64-30])  cylinder(r=m4_v_r,h=50);
-            }
-        }
-        
-        //arduino co
-        translate([70-40,-60-40-5+5,7.5]) ard_micro_co();
     }
 }
     
