@@ -354,9 +354,9 @@ module ms_co() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),-10.3/2]) {
     translate([22.2,-10.3,-1]) cylinder(r=1.5,h=20);
 }
 
-module bevel_co(r=5) difference() {
-    translate([-r,-r,0]) cube([r*2,r*2,100]);
-    translate([-r,-r,-1]) cylinder(r=r,h=102);
+module bevel_co(r=5,pos_h=100) difference() {
+    translate([-r,-r,0]) cube([r*2,r*2,pos_h]);
+    translate([-r,-r,-1]) cylinder(r=r,h=pos_h+2);
 }
 
 module bevel_co45(r=5) difference() {
