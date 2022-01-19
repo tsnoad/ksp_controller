@@ -6,8 +6,11 @@ brh = br/2;
 //nut and bolt dimensions (including clearance)
 m4_v_r = (4+0.2)/2; // radius for M4 cutouts (vertical to buildplate)
 m4_h_r = (4+0.4)/2; // radius for M4 cutouts (horizontal to buildplate)
-m4n_v_r = (7+0.2)/2; // radius for M4 nut cutouts (horizontal to buildplate)
-m4n_h_r = (7+0.4)/2; // radius for M4 nut cutouts (horizontal to buildplate)
+m4n_v_r = (7+0.1)/2; // radius for M4 nut cutouts (horizontal to buildplate)
+m4n2_v_r = m4n_v_r + 0.4; //for wedging m4 nuts in m4_co() function
+m4n_h_r = (7+0.2)/2; // radius for M4 nut cutouts (horizontal to buildplate)
+m4n2_h_r = m4n_h_r + 0.4; //for wedging m4 nuts in m4_co() function
+
 m3_v_r = 1.5+0.125; // radius for M3 cutouts (vertical to buildplate)
 m3n_v_r = 2.75+0.125; // radius for M3 nut cutouts (vertical to buildplate)
 
@@ -452,32 +455,53 @@ module m4_co(thread_length=25, thread_horiz=false, head_offset=0, nut_offset=fal
         translate([0,0,head_offset]) cylinder(r=4,h=4+50);
     }
     
-    if(nut_offset) {
+    #if(nut_offset) {
         if(thread_horiz) {
-            translate([0,0,-50-nut_offset]) hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_h_r-3.5,h=50);
-            
-        } else if(nut_overhung) {
-            translate([0,0,-50-nut_offset-0.2]) hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50-0.2);
-            
-            translate([0,0,-50-nut_offset]) hull() for(i=[0:2]) rotate([0,0,i*120]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50);    
+            //this orientation is not supported
+            //translate([0,0,-50-nut_offset]) hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_h_r-3.5,h=50);
             
         } else {
-            translate([0,0,-50-nut_offset]) hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50);
+            translate([0,0,-50-nut_offset]) {
+                if(nut_overhung) {
+                    hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50-0.2);
+                    
+                    hull() for(i=[0:2]) rotate([0,0,i*120]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50);
+                } else {
+                    hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50);
+                }
+                    
+                hull() for(i=[0:5]) rotate([0,0,i*60]) {
+                    translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50-3);
+                    translate([3.5/cos(30),0,0]) cylinder(r=m4n2_v_r-3.5,h=50-3-2);
+                }
+            }
         }
     }
 }
 
-module m4_endnut_co() {
+module m4_endnut_co(horiz_overhung=false) {
     //washer co
     hull() {
-        rotate([90,0,0]) cylinder(r=5,h=1.75);
-        translate([0,0,8]) rotate([90,0,0])  cylinder(r=5,h=1.75);
+        for(iz=[0,8]) translate([0,0,iz]) {
+            rotate([90,0,0]) {
+                cylinder(r=5,h=1.5);
+                if(horiz_overhung) translate([-5*tan(22.5),-5,0]) cube([2*5*tan(22.5),2*5,1.5]);
+            }
+        }
     }
         
     //nut co
-    hull() {
+    #hull() {
         for(iz=[0,8]) {
             translate([0,0,iz]) rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_h_r-3.5,h=8+5);
+        }
+    }
+    #hull() {
+        for(iz=[0,8]) {
+            translate([0,0,iz]) rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) translate([3.5/cos(30),0,0]) {
+                translate([0,0,4]) cylinder(r=m4n_h_r-3.5,h=8+5-4);
+                translate([0,0,4+2]) cylinder(r=m4n2_h_r-3.5,h=8+5-(4+2));
+            }
         }
     }
 }
@@ -487,23 +511,42 @@ module m4_endnut_b_co(en_l=9,horiz_overhung=false) {
     hull() {
         for(iz=[0,8]) translate([0,0,iz]) {
             rotate([90,0,0]) {
-                cylinder(r=5,h=1.75);
-                if(horiz_overhung) translate([-5*tan(22.5),-5,0]) cube([2*5*tan(22.5),2*5,1.75]);
+                cylinder(r=5,h=1.5);
+                if(horiz_overhung) translate([-5*tan(22.5),-5,0]) cube([2*5*tan(22.5),2*5,1.5]);
             }
         }
     }
         
     //nut co
-    hull() {
+    #hull() {
         for(iz=[0,8]) translate([0,0,iz]) {
             rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) {
                 translate([3.5/cos(30),0,0]) {
                     cylinder(r=m4n_h_r-3.5,h=en_l);
                     if(horiz_overhung) rotate([0,0,-(30+i*60)+90]) translate([-(m4n_h_r-3.5),-(m4n_h_r-3.5)*tan(22.5),0]) cube([2*(m4n_h_r-3.5),2*(m4n_h_r-3.5)*tan(22.5),en_l]);
                 }
+            }
+        }
+    }
+    #hull() {
+        for(iz=[0,8]) {
+            translate([0,0,iz]) rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) {
+                translate([3.5/cos(30),0,0]) {
+                    translate([0,0,4]) {
+                        cylinder(r=m4n_h_r-3.5,h=en_l-4);
+                        if(horiz_overhung) rotate([0,0,-(30+i*60)+90]) translate([-(m4n_h_r-3.5),-(m4n_h_r-3.5)*tan(22.5),0]) cube([2*(m4n_h_r-3.5),2*(m4n_h_r-3.5)*tan(22.5),en_l-4]);
+                    }
+                    
+                    translate([0,0,4+2]) {
+                        cylinder(r=m4n2_h_r-3.5,h=en_l-(4+2));
+                        if(horiz_overhung) rotate([0,0,-(30+i*60)+90]) translate([-(m4n2_h_r-3.5),-(m4n2_h_r-3.5)*tan(22.5),0]) cube([2*(m4n2_h_r-3.5),2*(m4n2_h_r-3.5)*tan(22.5),en_l-(4+2)]);
+                    }
+                }
                 translate([3.5/cos(30)-1,0,0]) {
-                    cylinder(r=m4n_h_r-3.5,h=en_l+1);
-                    if(horiz_overhung) rotate([0,0,-(30+i*60)+90]) translate([-(m4n_h_r-3.5),-(m4n_h_r-3.5)*tan(22.5),0]) cube([2*(m4n_h_r-3.5),2*(m4n_h_r-3.5)*tan(22.5),en_l+1]);
+                    translate([0,0,4+2]) {
+                        cylinder(r=m4n2_h_r-3.5,h=en_l-(4+2)+1);
+                        if(horiz_overhung) rotate([0,0,-(30+i*60)+90]) translate([-(m4n2_h_r-3.5),-(m4n2_h_r-3.5)*tan(22.5),0]) cube([2*(m4n2_h_r-3.5),2*(m4n2_h_r-3.5)*tan(22.5),en_l-(4+2)+1]);
+                    }
                 }
             }
         }
