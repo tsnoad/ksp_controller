@@ -361,8 +361,8 @@ module camactutor() {
     difference() {
         union() {
             hull() {
-                translate([0,8,0]) cylinder(r=12,h=/*35*/56);
-                translate([0,-8,0]) cylinder(r=12,h=/*35*/56);
+                translate([0,8,0]) cylinder(r=12,h=35);
+                translate([0,-8,0]) cylinder(r=12,h=35);
             }
             difference() {
                 hull() {
@@ -410,20 +410,8 @@ module camactutor() {
             translate([-(m4_h_r)*tan(22.5),-(m4_h_r),0]) cube([2*(m4_h_r)*tan(22.5),2*(m4_h_r),50]);
         }
         
-        //bearing washer co
-        rotate([0,0,0]) translate([0,brh+8,8+6]) hull() {
-            rotate([90,0,0]) translate([0,0,8]) cylinder(r=5,h=1.75);
-            translate([0,0,8]) rotate([90,0,0]) translate([0,0,8]) cylinder(r=5,h=1.75);
-        }
-            
-        //pivot nut co
-        rotate([0,0,0]) translate([0,brh+8,8+6]) hull() {
-            translate([0,0,-1]) rotate([90,0,0]) translate([0,0,8]) cylinder(r=m4n_h_r,h=9);
-            translate([0,0,8]) rotate([90,0,0]) translate([0,0,8]) cylinder(r=m4n_h_r,h=9);
-            
-            translate([0,0,-1]) rotate([90,0,0]) translate([0,0,8]) cylinder(r=m4n_h_r-1,h=9+1);
-            translate([0,0,8]) rotate([90,0,0]) translate([0,0,8]) cylinder(r=m4n_h_r-1,h=9+1);
-        }
+        //cam arm bolt endnut co
+        translate([0,brh,8+6]) m4_endnut_b_co();
         
         //cable routing cutout
         hull() {
