@@ -49,16 +49,21 @@ module box_lid_bolt_co() {
     union() {
         hull() {
             translate([0,0,2.5]) cylinder(r=7.5-2.5,h=10);
-            translate([0,0,2.5+2.5]) cylinder(r=7.5,h=10-2.5);
-            
             translate([10,0,2.5]) cylinder(r=7.5-2.5,h=10);
-            translate([10,0,2.5+2.5]) cylinder(r=7.5,h=10-2.5);
+        }
+        hull() {
+            translate([0,0,2.5+1.25]) cylinder(r=7.5-2.5,h=10);
+            translate([0,0,2.5+1.25+1.25]) cylinder(r=7.5-2.5+1.25,h=10);
+            
+            translate([10,0,2.5+1.25]) cylinder(r=7.5-2.5,h=10);
+            translate([10,0,2.5+1.25+1.25]) cylinder(r=7.5-2.5+1.25,h=10);
         }
         difference() {
-            translate([5,-7.5,2.5]) cube([12.5,15,10]);
+            translate([5,-7.5+1.25,2.5]) cube([12.5,15-2.5,10]);
             for(i=[0,1]) mirror([0,i,0]) hull() {
-                translate([5,-7.5,0]) cylinder(r=2.5,h=2.5);
-                translate([5,-7.5,2.5]) cylinder(r1=2.5,r2=0,h=2.5);
+                translate([5,-7.5+1.25,0]) cylinder(r=1.25,h=2.5+1.25);
+                translate([5+1.25,-7.5+1.25,0]) cylinder(r=1.25,h=2.5);
+                translate([5,-7.5+1.25,2.5+1.25]) cylinder(r1=1.25,r2=0,h=1.25);
             }
         }
     }
@@ -68,18 +73,27 @@ module box_lid_bolt_c_co() {
     union() {
         hull() {
             translate([0,0,2.5]) cylinder(r=7.5-2.5,h=10);
-            translate([0,0,2.5+2.5]) cylinder(r=7.5,h=10-2.5);
             
             for(i=[0,1]) rotate([0,0,i*90]) {
                 translate([10,0,2.5]) cylinder(r=7.5-2.5,h=10);
-                translate([10,0,2.5+2.5]) cylinder(r=7.5,h=10-2.5);
+            }
+        }
+        
+        hull() {
+            translate([0,0,2.5+1.25]) cylinder(r=7.5-2.5,h=10);
+            translate([0,0,2.5+1.25+1.25]) cylinder(r=7.5-2.5+1.25,h=10-2.5);
+            
+            for(i=[0,1]) rotate([0,0,i*90]) {
+                translate([10,0,2.5+1.25]) cylinder(r=7.5-2.5,h=10);
+                translate([10,0,2.5+1.25+1.25]) cylinder(r=7.5-2.5+1.25,h=10-2.5);
             }
         }
         for(i=[0,1]) rotate([0,0,i*90]) difference() {
-            translate([5,-7.5,2.5]) cube([12.5,15,10]);
+            translate([5,-7.5+1.25,2.5]) cube([12.5,15-2.5,10]);
             for(i=[0,1]) mirror([0,i,0]) hull() {
-                translate([5,-7.5,0]) cylinder(r=2.5,h=2.5);
-                translate([5,-7.5,2.5]) cylinder(r1=2.5,r2=0,h=2.5);
+                translate([5,-7.5+1.25,0]) cylinder(r=1.25,h=2.5+1.25);
+                translate([5+1.25,-7.5+1.25,0]) cylinder(r=1.25,h=2.5);
+                translate([5,-7.5+1.25,2.5+1.25]) cylinder(r1=1.25,r2=0,h=1.25);
             }
         }
     }
