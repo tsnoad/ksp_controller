@@ -11,22 +11,16 @@ m4n_h_r = (7+0.4)/2; // radius for M4 nut cutouts (horizontal to buildplate)
 m3_v_r = 1.5+0.125; // radius for M3 cutouts (vertical to buildplate)
 m3n_v_r = 2.75+0.125; // radius for M3 nut cutouts (vertical to buildplate)
 
+//microswitch and pivot travel parameters
 ms_xt = 2; //extra travel (before contact with lever)
-
-
 ms_pt = 1.6; //microswitch pre-travel
 ms_ot = 0.8; //microswitch over-travel
 
-
-ms_ptot = ms_xt + ms_pt + ms_ot;
+ms_ptot = ms_xt + ms_pt + ms_ot; //maximum displacement at microswitch
 ms_os = 26; //vertical offset from pivot to microswitches
 
-//echo(asin((ms_pt + ms_ot)/26)); //angle of switch actuation without extra travel
-//echo(sin(8) * 26 - (ms_pt)); //extra travel to meet operating travel at 10 degrees
-echo(asin((ms_pt+ms_xt)/26));
-echo(asin((ms_pt+ms_xt+ms_ot)/26));
+ms_p_a = atan(ms_ptot/ms_os); //maximum angle of the joystick/pivots
 
-ms_p_a = atan(ms_ptot/ms_os);
 
 module front_nut_co() {
         translate([0,0,-1]) {
@@ -281,7 +275,7 @@ module ms() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),-10.3/2]) {
 }
 
 module ms_spacing(i) {
-    rotate([0,0,i*90]) translate([0,-8-ms_xt,0]) children();
+    rotate([0,0,i*90]) translate([-1,-8-0.5-ms_xt,0]) children();
 }
 
 module ms_co_spacing() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),0]) {
@@ -321,7 +315,7 @@ module ms_bco() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),-10.3/2]) {
         }
     }
     hull() {
-        translate([2.8+1,-10.3-2.8+1,1.6]) {
+        translate([2.8-3+1,-10.3-2.8+1,1.6]) {
             cylinder(r=1+xr,h=10.3-1.6);
             translate([0,0,10.3-1.6+(5+1+1)*tan(45)]) sphere(r=1+xr);
         }
@@ -329,7 +323,7 @@ module ms_bco() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),-10.3/2]) {
             cylinder(r=1+xr,h=10.3-1.6);
             translate([0,0,10.3-1.6+(5+1+1)*tan(45)]) sphere(r=1+xr);
         }
-        translate([2.8+1,-10.3-2.8-5-1,1.6]) {
+        translate([2.8-3+1,-10.3-2.8-5-1,1.6]) {
             cylinder(r=1+xr,h=10.3-1.6);
             translate([0,0,10.3-1.6]) sphere(r=1+xr);
         }
@@ -345,6 +339,12 @@ module ms_bco() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),-10.3/2]) {
         translate([22.2-1,2.8+15-1,1.6]) cylinder(r=1+xr,h=10.3-1.6);
         translate([2.8+1,2.8-1,1.6]) cylinder(r=1+xr,h=10.3-1.6);
         translate([22.2-1,2.8-1,1.6]) cylinder(r=1+xr,h=10.3-1.6);
+    }
+    hull() {
+        translate([2.8+10+1,2.8+15-1,0]) cylinder(r=1+xr,h=10.3);
+        translate([22.2+2.8-1,2.8+15-1,0]) cylinder(r=1+xr,h=10.3);
+        translate([2.8+10+1,2.8-10.3/2-1,0]) cylinder(r=1+xr,h=10.3);
+        translate([22.2+2.8-1,2.8-10.3/2-1,0]) cylinder(r=1+xr,h=10.3);
     }
 }
 
