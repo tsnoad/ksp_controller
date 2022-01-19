@@ -1,4 +1,4 @@
-$fn=36;
+$fn=16;
 
 
 include <ksp_controller_include.scad>;
@@ -110,19 +110,19 @@ difference() {
         
         //washer co
         translate([0,0,4]) hull() {
-            cylinder(r=5,h=1.75-0.5);
+            translate([0,-1,0]) cylinder(r=5,h=1.75-0.5);
             translate([0,50,0]) cylinder(r=5,h=1.75-0.5);
             
-            cylinder(r=5-2,h=1.75-0.5+2);
+            translate([0,-1,0]) cylinder(r=5-2,h=1.75-0.5+2);
             translate([0,50,0]) cylinder(r=5-2,h=1.75-0.5+2);
         }
             
         //nut co
         translate([0,0,4]) hull() {
-            cylinder(r=m4n_v_r,h=9);
+            translate([0,-1,0]) cylinder(r=m4n_v_r,h=9);
             translate([0,50,0]) cylinder(r=m4n_v_r,h=9);
             
-            cylinder(r=m4n_v_r-1,h=9+1);
+            translate([0,-1,0]) cylinder(r=m4n_v_r-1,h=9+1);
             translate([0,50,0]) cylinder(r=m4n_v_r-1,h=9+1);
         }
     }
