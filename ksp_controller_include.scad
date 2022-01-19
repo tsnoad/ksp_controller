@@ -388,8 +388,43 @@ module ard_micro_co() translate([0,-2+0.75,0]) {
     
     //cable co
     hull() for(ix=[(6-2),-(6-2)]) for(iz=[(4-2),-(4-2)]) translate([ix,-0.75+2+0.01,-1+3+iz]) rotate([90,0,0]) {
-        cylinder(r=2,h=50);
-        translate([-2*tan(22.5),-2,0]) cube([2*2*tan(22.5),2*2,50]);
+        cylinder(r=2,h=50+50);
+        translate([-2*tan(22.5),-2,0]) cube([2*2*tan(22.5),2*2,50+50]);
+    }
+    hull() for(ix=[(6+4-2),-(6+4-2)]) for(iy=[(45-30)+50-2,(45-30)+2]) translate([ix,-0.75+2-iy,-50]) {
+        cylinder(r=2,h=50+4+2);
+    }
+}
+
+module attiny_co() translate([0,-2+0.75,0]) {
+    //pcb co
+    hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
+        translate([18.2/2,0,-1]) cylinder(r=0.75,h=1.6);
+        translate([18.2/2,24.2,-1]) cylinder(r=0.75,h=1.6+2);
+        translate([18.2/2,2,-1]) cylinder(r=0.75,h=1.6+2);
+    }
+        
+    //co for end of pin headers
+    *hull() for(ixm=[0,1]) mirror([ixm,0,0]) for(iy=[23-1.252,23+1.252]) {
+        translate([18.2/2,iy,-1-2.5]) cylinder(r=0.75,h=1.6+2.5);
+        translate([18.2/2,iy,-1-2.5]) cylinder(r=0.75,h=1.6+2.5);
+    }
+    
+    //hold-down bolt co
+    translate([0,24.2+0.75+m3_v_r+1.6,-25]) cylinder(r=m3_v_r,h=50);
+    translate([0,24.2+0.75+m3_v_r+1.6,-50-1-2]) {
+        cylinder(r=2.5+0.5,h=50-0.4);
+        translate([-m3_v_r,-m3_v_r,0]) cube([2*m3_v_r,2*m3_v_r,50]);
+        translate([-sqrt(pow(2.5+0.5,2)-pow(m3_v_r,2)),-m3_v_r,0]) cube([2*sqrt(pow(2.5+0.5,2)-pow(m3_v_r,2)),2*m3_v_r,50-0.2]);
+    }
+    
+    //cable co
+    hull() for(ix=[(6-2),-(6-2)]) for(iz=[(4-2),-(4-2)]) translate([ix,-0.75+2+0.01,-1+3+iz]) rotate([90,0,0]) {
+        cylinder(r=2,h=50+50);
+        translate([-2*tan(22.5),-2,0]) cube([2*2*tan(22.5),2*2,50+50]);
+    }
+    hull() for(ix=[(6+4-2),-(6+4-2)]) for(iy=[(45-30)+50-2,(45-30)+2]) translate([ix,-0.75+2-iy,-50]) {
+        cylinder(r=2,h=50+4+2);
     }
 }
 
