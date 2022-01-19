@@ -1,4 +1,14 @@
-#include <Keyboard.h>
+
+
+//pin 3 does not work
+//pin 8 does not work
+//pin 11 does not work
+
+
+//#include <Keyboard.h>
+
+
+
 
 /*int trans_inout_brown = 3;
 int trans_inout_red = 2;
@@ -28,10 +38,7 @@ char trans_right_key = 'l';
 char trans_up_key = 'i';
 char trans_down_key = 'k';*/
 
-//pin 8 does not work
-//pin 11 does not work
-
-int att_rollleft_orange = 6;
+/*int att_rollleft_orange = 6;
 int att_rollright_brown = 7;
 int att_red = 5;
 int att_yellow = 4;
@@ -57,11 +64,41 @@ char att_rollright_key = 'e';
 char att_left_key = 'a';
 char att_right_key = 'd';
 char att_up_key = 'w';
-char att_down_key = 's';
+char att_down_key = 's';*/
 
+
+/*bool cw_r1_c3_active = false;
+bool cw_r1_c4_active = false;
+
+bool cw_r2_c3_active = false;
+bool cw_r2_c4_active = false;
+
+bool cw_r3_c3_active = false;
+bool cw_r3_c4_active = false;
+
+char cw_r1_c3_key = 'a';
+char cw_r1_c4_key = 'b';
+
+char cw_r2_c3_key = 'c';
+char cw_r2_c4_key = 'd';
+
+char cw_r3_c3_key = 'e';
+char cw_r3_c4_key = 'f';
+
+int i = 0;*/
 
 
 void setup() {
+  Serial.begin(9600);
+  /*keypad.setHoldTime(50);
+  
+  keypad.addEventListener(keypadEvent); //add an event listener for this keypad*/
+
+  /*pinMode(3, OUTPUT);
+  pinMode(4, INPUT_PULLUP);*/
+
+
+  
   /*pinMode(trans_in, INPUT_PULLUP);
   pinMode(trans_out, INPUT_PULLUP);
   pinMode(trans_left, INPUT_PULLUP);
@@ -69,17 +106,27 @@ void setup() {
   pinMode(trans_up, INPUT_PULLUP);
   pinMode(trans_down, INPUT_PULLUP);*/
   
-  pinMode(att_rollleft, INPUT_PULLUP);
+  /*pinMode(att_rollleft, INPUT_PULLUP);
   pinMode(att_rollright, INPUT_PULLUP);
   pinMode(att_left, INPUT_PULLUP);
   pinMode(att_right, INPUT_PULLUP);
   pinMode(att_up, INPUT_PULLUP);
   pinMode(att_down, INPUT_PULLUP);
   
-  Keyboard.begin();
+  Keyboard.begin();*/
 }
 
+/*int brt_lev = 0; //0, 1 or 2
+
+int buttonState;             // the current reading from the input pin
+int lastButtonState = HIGH;  // the previous reading from the input pin
+
+unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
+unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers*/
+
 void loop() {
+
+
   /*if (trans_in_active != (digitalRead(trans_in) == LOW)) {
     if (digitalRead(trans_in) == LOW) {
       trans_in_active = true;
@@ -142,7 +189,7 @@ void loop() {
 
 
 
-  if (att_rollleft_active != (digitalRead(att_rollleft) == LOW)) {
+  /*if (att_rollleft_active != (digitalRead(att_rollleft) == LOW)) {
     if (digitalRead(att_rollleft) == LOW) {
       att_rollleft_active = true;
       Keyboard.press(att_rollleft_key);
@@ -197,5 +244,5 @@ void loop() {
       att_down_active = false;
       Keyboard.release(att_down_key);
     }
-  }
+  }*/
 }
