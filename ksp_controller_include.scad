@@ -453,7 +453,10 @@ module m4_co(thread_length=25, thread_horiz=false, head_offset=0, nut_offset=fal
     }
     
     if(nut_offset) {
-        if(nut_overhung) {
+        if(thread_horiz) {
+            translate([0,0,-50-nut_offset]) hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_h_r-3.5,h=50);
+            
+        } else if(nut_overhung) {
             translate([0,0,-50-nut_offset-0.2]) hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50-0.2);
             
             translate([0,0,-50-nut_offset]) hull() for(i=[0:2]) rotate([0,0,i*120]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50);    
@@ -473,24 +476,36 @@ module m4_endnut_co() {
         
     //nut co
     hull() {
-        translate([0,0,-1]) rotate([90,0,0]) cylinder(r=m4n_h_r,h=9+5);
-        translate([0,0,8]) rotate([90,0,0]) cylinder(r=m4n_h_r,h=9+5);
+        for(iz=[0,8]) {
+            translate([0,0,iz]) rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_h_r-3.5,h=8+5);
+        }
     }
 }
 
-module m4_endnut_b_co() {
+module m4_endnut_b_co(en_l=9,horiz_overhung=false) {
     //washer co
     hull() {
-        rotate([90,0,0]) cylinder(r=5,h=1.75);
-        translate([0,0,8]) rotate([90,0,0])  cylinder(r=5,h=1.75);
+        for(iz=[0,8]) translate([0,0,iz]) {
+            rotate([90,0,0]) {
+                cylinder(r=5,h=1.75);
+                if(horiz_overhung) translate([-5*tan(22.5),-5,0]) cube([2*5*tan(22.5),2*5,1.75]);
+            }
+        }
     }
         
     //nut co
     hull() {
-        translate([0,0,-1]) rotate([90,0,0]) cylinder(r=m4n_h_r,h=9);
-        translate([0,0,8]) rotate([90,0,0]) cylinder(r=m4n_h_r,h=9);
-        
-        translate([0,0,-1]) rotate([90,0,0]) cylinder(r=m4n_h_r-1,h=9+1);
-        translate([0,0,8]) rotate([90,0,0]) cylinder(r=m4n_h_r-1,h=9+1);
+        for(iz=[0,8]) translate([0,0,iz]) {
+            rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) {
+                translate([3.5/cos(30),0,0]) {
+                    cylinder(r=m4n_h_r-3.5,h=en_l);
+                    if(horiz_overhung) rotate([0,0,-(30+i*60)+90]) translate([-(m4n_h_r-3.5),-(m4n_h_r-3.5)*tan(22.5),0]) cube([2*(m4n_h_r-3.5),2*(m4n_h_r-3.5)*tan(22.5),en_l]);
+                }
+                translate([3.5/cos(30)-1,0,0]) {
+                    cylinder(r=m4n_h_r-3.5,h=en_l+1);
+                    if(horiz_overhung) rotate([0,0,-(30+i*60)+90]) translate([-(m4n_h_r-3.5),-(m4n_h_r-3.5)*tan(22.5),0]) cube([2*(m4n_h_r-3.5),2*(m4n_h_r-3.5)*tan(22.5),en_l+1]);
+                }
+            }
+        }
     }
 }
