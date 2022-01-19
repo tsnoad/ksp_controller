@@ -3,11 +3,11 @@
 br = 72; //width of pivot hinge
 brh = br/2;
 
-m4_v_r = 2+0.125; // radius for M4 cutouts (vertical to buildplate)
-m4_h_r = 2+0.0625; // radius for M4 cutouts (horizontal to buildplate)
-m4n_v_r = 3.5+0.125; // radius for M4 nut cutouts (horizontal to buildplate)
-m4n_h_r = 3.5+0.0625; // radius for M4 nut cutouts (horizontal to buildplate)
-
+//nut and bolt dimensions (including clearance)
+m4_v_r = (4+0.2)/2; // radius for M4 cutouts (vertical to buildplate)
+m4_h_r = (4+0.4)/2; // radius for M4 cutouts (horizontal to buildplate)
+m4n_v_r = (7+0.2)/2; // radius for M4 nut cutouts (horizontal to buildplate)
+m4n_h_r = (7+0.4)/2; // radius for M4 nut cutouts (horizontal to buildplate)
 m3_v_r = 1.5+0.125; // radius for M3 cutouts (vertical to buildplate)
 m3n_v_r = 2.75+0.125; // radius for M3 nut cutouts (vertical to buildplate)
 
