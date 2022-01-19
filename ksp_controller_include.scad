@@ -205,17 +205,14 @@ module sep_co(r1=8) {
     w2 = 0.5+0.5;
     
     rotate([90,0,0]) {
-        hull() {
-            translate([0,0,-w2/2]) cylinder(r=5,h=w2);
-            cylinder(r=5+w2/2,h=0.01);
-            
-            translate([0,8,-w2/2]) cylinder(r=5,h=w2);
-            translate([0,8,0]) cylinder(r=5+w2/2,h=0.01);
+        hull() for(iz=[0,8]) {
+            translate([0,iz,-w2/2]) cylinder(r=5,h=w2);
+            translate([0,iz,0]) cylinder(r=5+w2/2,h=0.01);
         }
         
-        hull() {
-            translate([0,8,-w1/2]) cylinder(r=r1,h=w1);
-            translate([0,-8,-w1/2]) cylinder(r=r1,h=w1);
+        hull() for(iz=[-8,8]) {
+            translate([0,iz,-w1/2]) cylinder(r=r1,h=w1);
+            translate([0,iz,-0.01/2]) cylinder(r=r1+w1/2,h=0.01);
         }
     }
 }
