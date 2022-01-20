@@ -1,4 +1,4 @@
-module thrust_box_lid() translate([0,0,48]) {
+module thrust_box_lid() {
     difference() {
         box_lid(70,70,60,60+40+5);
         
