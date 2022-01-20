@@ -370,9 +370,9 @@ module bevel_co45(r=5) difference() {
 module ard_micro_co() translate([0,-2+0.75,0]) {
     //pcb co
     hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
-        translate([17.5/2,0,-1]) cylinder(r=0.75,h=1.6);
-        translate([17.5/2,32.5,-1]) cylinder(r=0.75,h=1.6+2);
-        translate([17.5/2,2,-1]) cylinder(r=0.75,h=1.6+2);
+        translate([17.5/2,0,-1]) cylinder(r=0.5,h=1.6);
+        translate([17.5/2,32.5,-1]) cylinder(r=0.5,h=1.6+2);
+        translate([17.5/2,2,-1]) cylinder(r=0.5,h=1.6+2);
     }
         
     //co for end of pin headers
@@ -382,8 +382,12 @@ module ard_micro_co() translate([0,-2+0.75,0]) {
     }
     
     //hold-down bolt co
-    translate([0,32.5+0.75+m3_v_r+1.6,-25]) cylinder(r=m3_v_r,h=50);
-    translate([0,32.5+0.75+m3_v_r+1.6,-50-1-2]) {
+    translate([0,32.5+0.5+m3_v_r,-25]) cylinder(r=m3_v_r,h=50);
+    hull() {
+        translate([0,32.5+0.5+m3_v_r,-1]) cylinder(r=m3_v_r,h=50);
+        translate([0,32.5,-1]) cylinder(r=m3_v_r,h=50);
+    }
+    translate([0,32.5+0.5+m3_v_r,-50-1-2]) {
         cylinder(r=2.5+0.5,h=50-0.4);
         translate([-m3_v_r,-m3_v_r,0]) cube([2*m3_v_r,2*m3_v_r,50]);
         translate([-sqrt(pow(2.5+0.5,2)-pow(m3_v_r,2)),-m3_v_r,0]) cube([2*sqrt(pow(2.5+0.5,2)-pow(m3_v_r,2)),2*m3_v_r,50-0.2]);
@@ -402,20 +406,18 @@ module ard_micro_co() translate([0,-2+0.75,0]) {
 module attiny_co() translate([0,-2+0.75,0]) {
     //pcb co
     hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
-        translate([18.2/2,0,-1]) cylinder(r=0.75,h=1.6);
-        translate([18.2/2,24.2,-1]) cylinder(r=0.75,h=1.6+2);
-        translate([18.2/2,2,-1]) cylinder(r=0.75,h=1.6+2);
-    }
-        
-    //co for end of pin headers
-    *hull() for(ixm=[0,1]) mirror([ixm,0,0]) for(iy=[23-1.252,23+1.252]) {
-        translate([18.2/2,iy,-1-2.5]) cylinder(r=0.75,h=1.6+2.5);
-        translate([18.2/2,iy,-1-2.5]) cylinder(r=0.75,h=1.6+2.5);
+        translate([18.2/2,0,-1]) cylinder(r=0.5,h=1.6);
+        translate([18.2/2,24.2,-1]) cylinder(r=0.5,h=1.6+2);
+        translate([18.2/2,2,-1]) cylinder(r=0.5,h=1.6+2);
     }
     
     //hold-down bolt co
-    translate([0,24.2+0.75+m3_v_r+1.6,-25]) cylinder(r=m3_v_r,h=50);
-    translate([0,24.2+0.75+m3_v_r+1.6,-50-1-2]) {
+    translate([0,24.2+0.5+m3_v_r,-25]) cylinder(r=m3_v_r,h=50);
+    hull() {
+        translate([0,24.2+0.5+m3_v_r,-1]) cylinder(r=m3_v_r,h=50);
+        translate([0,24.2,-1]) cylinder(r=m3_v_r,h=50);
+    }
+    translate([0,24.2+0.5+m3_v_r,-50-1-2]) {
         cylinder(r=2.5+0.5,h=50-0.4);
         translate([-m3_v_r,-m3_v_r,0]) cube([2*m3_v_r,2*m3_v_r,50]);
         translate([-sqrt(pow(2.5+0.5,2)-pow(m3_v_r,2)),-m3_v_r,0]) cube([2*sqrt(pow(2.5+0.5,2)-pow(m3_v_r,2)),2*m3_v_r,50-0.2]);

@@ -7,9 +7,6 @@ $vpd = 450;
 $t=0.75;
 
 
-
-
-
 include <ksp_controller_include.scad>;
 include <ksp_controller_pivots.scad>;
 include <ksp_controller_module_attitude.scad>;
@@ -33,7 +30,7 @@ include <ksp_controller_module_base.scad>;
 }
 
 //arduino fit test
-*difference() {
+difference() {
     mirror([0,1,0]) translate([0,0,-26-14]) {
         hull() for(j=[(70-5),(70-5-75)]) for(i=[-12,12]) {
             translate([j,i,0]) cylinder(r=5,h=7.5);
@@ -48,16 +45,16 @@ include <ksp_controller_module_base.scad>;
 
 
 //arduino fit test (but with an attiny85)
-difference() {
+*difference() {
     mirror([0,1,0]) translate([0,0,-26-14]) {
-        hull() for(j=[(70-5),(70-5-67.5)]) for(i=[-12,12]) {
+        hull() for(j=[(70-5),(70-5-37.5)]) for(i=[-12,12]) {
             translate([j,i,0]) cylinder(r=5,h=7.5);
         }
-        hull() for(j=[(70-5),(70+5-30-15)]) for(i=[-12,12]) {
+        hull() for(j=[(70-5),(70+5-15)]) for(i=[-12,12]) {
             translate([j,i,0]) cylinder(r=5,h=7.5+10);
         }
     }
     //arduino co
-    translate([(70-15-30),0,-26-14+7.5]) rotate([0,0,90]) attiny_co();
+    translate([(70-15),0,-26-14+7.5]) rotate([0,0,90]) attiny_co();
 }
 
