@@ -188,6 +188,21 @@ module base2() {
         
         //arduino co
         translate([(70-20),(60+8+12),-26-14+7.5]) rotate([0,0,90]) ard_micro_co();
+        
+        //wire routing co
+        translate([brh+5+8,-20,-26+8+5]) rotate([-90,0,0]) hull() {
+            cylinder(r=5,h=100);
+            translate([-5*tan(22.5),-5,0]) cube([2*5*tan(22.5),2*5,100]);
+        }
+        
+        //cutouts for bolts to mount to 8040 rail
+        for(ixm=[0,1]) mirror([ixm,0,0]) for(iy=[-(60-12),(60+40+5-12)]) {
+            translate([20,iy,-26-14]) m4_co(25,false,8);
+        }
+        
+        //cutout to prevent fouling switches
+        translate([-(brh+4),40,24+16-24]) cube([2*(brh+4),50,50]);
+        for(ixm=[0,1]) mirror([ixm,0,0]) translate([(brh+4),60+8,24+16-24]) rotate([0,0,90]) bevel_co(4);
     }
 }
 
@@ -214,7 +229,7 @@ module base_co() {
         }
     }
     
-    //central cutout for actuator movement, also acts as a stop
+    //central cutout for actuator movement, also acts as a stop (in theory)
     translate([0,0,0]) {
         hull() for(i=[0,1]) mirror([0,i,0]) for(j=[0,1]) mirror([j,0,0]) {
             rotate([0,-ms_p_a,0]) rotate([ms_p_a,0,0]) {
