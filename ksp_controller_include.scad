@@ -457,7 +457,7 @@ module m4_co(thread_length=25, thread_horiz=false, head_offset=0, nut_offset=fal
         translate([0,0,head_offset]) cylinder(r=4,h=4+50);
     }
     
-    #if(nut_offset) {
+    if(nut_offset) {
         if(thread_horiz) {
             //this orientation is not supported
             //translate([0,0,-50-nut_offset]) hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_h_r-3.5,h=50);
@@ -493,12 +493,12 @@ module m4_endnut_co(horiz_overhung=false) {
     }
         
     //nut co
-    #hull() {
+    hull() {
         for(iz=[0,8]) {
             translate([0,0,iz]) rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_h_r-3.5,h=8+5);
         }
     }
-    #hull() {
+    hull() {
         for(iz=[0,8]) {
             translate([0,0,iz]) rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) translate([3.5/cos(30),0,0]) {
                 translate([0,0,4]) cylinder(r=m4n_h_r-3.5,h=8+5-4);
@@ -520,7 +520,7 @@ module m4_endnut_b_co(en_l=9,horiz_overhung=false) {
     }
         
     //nut co
-    #hull() {
+    hull() {
         for(iz=[0,8]) translate([0,0,iz]) {
             rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) {
                 translate([3.5/cos(30),0,0]) {
@@ -530,7 +530,7 @@ module m4_endnut_b_co(en_l=9,horiz_overhung=false) {
             }
         }
     }
-    #hull() {
+    hull() {
         for(iz=[0,8]) {
             translate([0,0,iz]) rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) {
                 translate([3.5/cos(30),0,0]) {
