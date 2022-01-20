@@ -29,7 +29,7 @@ module thrust_box_lid() {
                 }
             }
             
-            for(j=[12.5,-12.5]) {
+            *for(j=[12.5,-12.5]) {
                 translate([(60-7.5),j,0]) {
                     translate([0,0,-1]) cylinder(r=m4_v_r,h=50);
                     box_lid_bolt_i_co();

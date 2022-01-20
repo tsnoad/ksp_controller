@@ -28,7 +28,7 @@ module trans_box_lid() {
                     box_lid_bolt_co();
                 }
             }
-            translate([(50-7.5),0,0]) {
+            *translate([(50-7.5),0,0]) {
                 box_lid_bolt_i2_co([10,-10]);
                 for(j=[10,-10]) {
                     translate([0,j,-1]) cylinder(r=m4_v_r,h=50);
