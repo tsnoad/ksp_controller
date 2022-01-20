@@ -9,5 +9,5 @@ include <ksp_controller_include.scad>;
 include <ksp_controller_module_switches.scad>;
 include <ksp_controller_module_cw.scad>;
 
-*translate([0,0,80]) switch_box_lid();
+translate([0,0,80]) switch_box_lid();
 cw_box_frame();

@@ -1,16 +1,20 @@
 $fn=16;
 
-expl = 0;
-//$vpr = [60, 0, 45+180];
+$vpr = [60, 0, 45];
 $vpt = [0, 0, 0];
-$vpd = 450;
-$t=0.75;
+$vpd = 875;
+$t=1;
 
 
 include <ksp_controller_include.scad>;
 include <ksp_controller_pivots.scad>;
-include <ksp_controller_module_attitude.scad>;
 include <ksp_controller_module_base.scad>;
+
+include <ksp_controller_module_cw.scad>;
+include <ksp_controller_module_switches.scad>;
+include <ksp_controller_module_attitude.scad>;
+include <ksp_controller_module_translation.scad>;
+include <ksp_controller_module_thrust.scad>;
 
 //cam levers in printable orientation
 //linear
@@ -49,3 +53,11 @@ include <ksp_controller_module_base.scad>;
 
 *rotate([180,0,0]) piv_in_thrust();
 *camactutor_thrust();
+
+*switch_box_lid();
+*cw_box_lid();
+*att_box_lid();
+*trans_box_lid();
+*thrust_box_lid();
+
+cw_box_frame();
