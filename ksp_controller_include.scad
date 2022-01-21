@@ -554,3 +554,35 @@ module m4_endnut_b_co(en_l=9,horiz_overhung=false) {
         }
     }
 }
+
+module m4_endnut_vert_co_wid(w=0) {
+    translate([w,0,0]) children();
+    if(w!=0) translate([-w,0,0]) children();
+}
+
+module m4_endnut_vert_co(w=0) rotate([-90,0,0]) {
+    //washer co
+    *hull() {
+        for(iz=[0,50]) translate([0,0,iz]) {
+            rotate([90,0,0]) {
+                cylinder(r=5,h=0.75);
+                cylinder(r=5-2/tan(37.5),h=0.75+2);
+            }
+        }
+    }
+        
+    //nut co
+    hull() m4_endnut_vert_co_wid(w) union() {
+        for(iz=[0,50]) {
+            translate([0,0,iz]) rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=8);
+        }
+    }
+    hull() m4_endnut_vert_co_wid(w) {
+        for(iz=[0,50]) {
+            translate([0,0,iz]) rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) translate([3.5/cos(30),0,0]) {
+                translate([0,0,4]) cylinder(r=m4n_v_r-3.5,h=8-4);
+                translate([0,0,4+2]) cylinder(r=m4n2_v_r-3.5,h=8-(4+2));
+            }
+        }
+    }
+}

@@ -320,16 +320,7 @@ difference() {
             cylinder(r=m4_v_r,h=1+4+8);
             rotate([0,0,90]) translate([-m4_v_r*tan(22.5),-m4_v_r,0]) cube([2*m4_v_r*tan(22.5),2*m4_v_r,1+4+8]);
         }
-            
-        //washer co
-        translate([0,0,4]) hull() {
-            translate([0,0,0]) cylinder(r=5,h=1.75-0.5);
-        }
-            
-        //nut co
-        hull() for(j=[-6,6]) translate([j,0,4]) for(k=[0,50]) {
-            translate([0,k,0]) for(ir=[0:5]) rotate([0,0,30+ir*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=8);
-        }
+        translate([0,0,4]) m4_endnut_vert_co(5);
     }
 }
 

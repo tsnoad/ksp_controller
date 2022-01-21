@@ -75,24 +75,7 @@ difference() {
     //co for nut for bolt to attach to pivots
     for(i=[0,1]) mirror([0,i,0]) translate([0,(8+4),0]) {
         translate([0,0,-1]) cylinder(r=m4_v_r,h=1+8+8);
-        
-        //washer co
-        translate([0,0,4]) hull() {
-            translate([0,-1,0]) cylinder(r=5,h=1.75-0.5);
-            translate([0,50,0]) cylinder(r=5,h=1.75-0.5);
-            
-            translate([0,-1,0]) cylinder(r=5-2,h=1.75-0.5+2);
-            translate([0,50,0]) cylinder(r=5-2,h=1.75-0.5+2);
-        }
-            
-        //nut co
-        translate([0,0,4]) hull() {
-            translate([0,-1,0]) cylinder(r=m4n_v_r,h=9);
-            translate([0,50,0]) cylinder(r=m4n_v_r,h=9);
-            
-            translate([0,-1,0]) cylinder(r=m4n_v_r-1,h=9+1);
-            translate([0,50,0]) cylinder(r=m4n_v_r-1,h=9+1);
-        }
+        translate([0,0,4]) m4_endnut_vert_co();
     }
 }
 
@@ -131,33 +114,5 @@ module switch_co_b() {
         
         *sphere(r=body_co_r);
         *translate([0,-body_co_r,0]) rotate([-90,0,0]) cylinder(r=body_co_r*tan(22.5),h=2*body_co_r);
-    }
-    
-    *translate([0,0,-15]) hull() {
-        sphere(r=body_co_r);
-        translate([0,-body_co_r,0]) rotate([-90,0,0]) cylinder(r=body_co_r*tan(22.5),h=2*body_co_r);
-        
-        translate([-8,0,-8]) {
-            sphere(r=body_co_r);
-            translate([0,-body_co_r,0]) rotate([-90,0,0]) cylinder(r=body_co_r*tan(22.5),h=2*body_co_r);
-        }
-    }
-    *translate([0,0,-15]) hull() {
-        translate([-8,0,-8]) {
-            sphere(r=body_co_r);
-            translate([0,-body_co_r,0]) rotate([-90,0,0]) cylinder(r=body_co_r*tan(22.5),h=2*body_co_r);
-        }
-        translate([-8,0,-8-50]) {
-            sphere(r=body_co_r);
-            translate([0,-body_co_r,0]) rotate([-90,0,0]) cylinder(r=body_co_r*tan(22.5),h=2*body_co_r);
-        }
-    }
-    
-    *translate([0,b_r,-15+0.01]) intersection() {
-        rotate([0,90,0]) rotate_extrude($fn=$fn*4) translate([b_r,0,0]) hull() {
-            circle(r=body_co_r,$fn=$fn/4);
-            rotate([0,0,90]) translate([-body_co_r*tan(22.5),-body_co_r]) square([2*body_co_r*tan(22.5),2*body_co_r]);
-        }
-        translate([-25,-b_r-50,-100]) cube([50,b_r+50,100]);
     }
 }

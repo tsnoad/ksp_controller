@@ -8,15 +8,15 @@ difference() {
             translate([2,(8-2),-8]) cylinder(r=2,h=14);
             translate([2,-(8-2),-8]) cylinder(r=2,h=14);
             
-            translate([(8+12+8-2),(8-2),-8]) cylinder(r=2,h=14);
-            translate([(8+12+8-2),-(8-2),-8]) cylinder(r=2,h=14);
+            translate([(8+24+8-2),(8-2),-8]) cylinder(r=2,h=14);
+            translate([(8+24+8-2),-(8-2),-8]) cylinder(r=2,h=14);
         }
         hull() {
             translate([2,(8-2),-8]) cylinder(r=2,h=8);
             translate([2,-(8-2),-8]) cylinder(r=2,h=8);
             
-            translate([(8+12+8+12-2),(8-2),-8]) cylinder(r=2,h=8);
-            translate([(8+12+8+12-2),-(8-2),-8]) cylinder(r=2,h=8);
+            translate([(8+24+8+12-2),(8-2),-8]) cylinder(r=2,h=8);
+            translate([(8+24+8+12-2),-(8-2),-8]) cylinder(r=2,h=8);
         }
     }
     translate([8,0,8]) {
@@ -31,8 +31,16 @@ difference() {
         translate([-(m4_h_r)*tan(22.5),-(m4_h_r),0]) cube([2*(m4_h_r)*tan(22.5),2*(m4_h_r),50]);
     }
     
-    translate([8+12+8+6,0,-8-1]) cylinder(r=m3_v_r,h=50);
-    translate([8+12+8+6,0,-50-4]) {
+    
+    translate([8+24,0,-8+4]) {
+        m4_endnut_vert_co();
+    }
+    translate([8+24,0,-8-1]) hull() {
+        cylinder(r=m4_v_r,h=8);
+    }
+    
+    translate([8+24+8+6,0,-8-1]) cylinder(r=m3_v_r,h=50);
+    translate([8+24+8+6,0,-50-4]) {
         cylinder(r=2.5+0.5,h=50-0.4);
         translate([-m3_v_r,-m3_v_r,0]) cube([2*m3_v_r,2*m3_v_r,50]);
         translate([-sqrt(pow(2.5+0.5,2)-pow(m3_v_r,2)),-m3_v_r,0]) cube([2*sqrt(pow(2.5+0.5,2)-pow(m3_v_r,2)),2*m3_v_r,50-0.2]);
