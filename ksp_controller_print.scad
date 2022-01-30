@@ -1,4 +1,4 @@
-$fn=32;
+$fn=72;
 
 $vpr = [60, 0, 45];
 $vpt = [0, 0, 0];
@@ -17,26 +17,25 @@ include <ksp_controller_module_translation.scad>;
 include <ksp_controller_module_thrust.scad>;
 
 //cam levers in printable orientation
-//linear
-*for(i=[0,1]) rotate([0,0,i*90]) {
-    translate([-(24+8+5)-20,16,0]) rotate([-90,0,0]) camlever(0,0,2);
-    translate([(24+8+5)+20,-16,0]) rotate([90,0,0]) camlever(1,0,2);
-}
-//exponential
-*for(i=[0,1]) rotate([0,0,i*90]) {
-    translate([-(24+8+5)-20,16,0]) rotate([-90,0,0]) camlever(0,1,2);
-    translate([(24+8+5)+20,-16,0]) rotate([90,0,0]) camlever(1,1,2);
-}
-//hybrid
-*for(i=[0,1]) rotate([0,0,i*90]) {
-    translate([-(24+8+5)-20,16,0]) rotate([-90,0,0]) camlever(0,0.5,4);
-    translate([(24+8+5)+20,-16,0]) rotate([90,0,0]) camlever(1,0.5,4);
-}
-
-//pair
+//pair, hybrid
 *union() {
-    translate([-(24+8+5)-0,16,0]) rotate([-90,0,0]) camlever(0,1,2);
-    translate([(24+8+5)+0,-16,0]) rotate([90,0,0]) camlever(1,1,2);
+    translate([-(24+8+5)-0,16,0]) rotate([-90,0,0]) camlever(0,0.5,0);
+    translate([(24+8+5)+0,-16,0]) rotate([90,0,0]) camlever(1,0.5,0);
+}
+//pair, exponential
+*union() {
+    translate([-(24+8+5)-0,16,0]) rotate([-90,0,0]) camlever(0,1,0);
+    translate([(24+8+5)+0,-16,0]) rotate([90,0,0]) camlever(1,1,0);
+}
+//pair, linear
+*union() {
+    translate([-(24+8+5)-0,16,0]) rotate([-90,0,0]) camlever(0,0,0);
+    translate([(24+8+5)+0,-16,0]) rotate([90,0,0]) camlever(1,0,0);
+}
+//pair, sinusoidal hybrid
+*union() {
+    translate([-(24+8+5)-0,16,0]) rotate([-90,0,0]) camlever(0,0,0.5);
+    translate([(24+8+5)+0,-16,0]) rotate([90,0,0]) camlever(1,0,0.5);
 }
 
 *base();
@@ -52,7 +51,7 @@ include <ksp_controller_module_thrust.scad>;
 *camactutor();
 
 *rotate([180,0,0]) piv_in_thrust();
-*camactutor_thrust();
+camactutor_thrust();
 
 *switch_box_lid();
 *cw_box_lid();
@@ -60,4 +59,4 @@ include <ksp_controller_module_thrust.scad>;
 *trans_box_lid();
 *thrust_box_lid();
 
-cw_box_frame();
+*cw_box_frame();
