@@ -1,4 +1,4 @@
-$fn=16;
+$fn=72;
 
 
 include <ksp_controller_include.scad>;
@@ -75,6 +75,7 @@ difference() {
     
     //import("STLs/ksp_controller_module_attitude_handle_v2.stl",convexity=10);
     
+    //cable routing
     hull() {
         sphere(r=5);
         translate([0,0,20]) sphere(r=5);

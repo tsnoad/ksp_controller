@@ -1,7 +1,8 @@
-$fn=16;
+$fn=72;
 
 
 include <ksp_controller_include.scad>;
+include <ksp_controller_pivots.scad>;
 
 
 r3 = 125;

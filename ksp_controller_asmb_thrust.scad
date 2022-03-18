@@ -1,7 +1,7 @@
-$fn=16;
+$fn=36;
 
 $vpr = [60, 0, 45];
-$vpt = [0, 0, 75];
+$vpt = [0, -20, 25];
 $vpd = 875;
 $t=1;
 
@@ -30,9 +30,9 @@ asmb_8_z = asmb_a*pow(min(0,($t-0.9)),2);
 asmb_9_z = asmb_a*pow(min(0,($t-1)),2);
 
 
-translate([0,0,asmb_8_z]) translate([0,0,(80-26-14)]) thrust_box_lid();
+*translate([0,0,asmb_8_z]) translate([0,0,(80-26-14)]) thrust_box_lid();
 
-translate([0,0,asmb_4_z]) rotate([0,0,180]) base2();
+*translate([0,0,asmb_4_z]) rotate([0,0,180]) base2();
 
 translate([0,0,asmb_6_z]) rotate([0,0,180]) rotate([0,0,90]) {
     translate([0,brh+8+4,8+8]) translate([24,0,0]) rotate([0,-abs(piv_b),0]) translate([-24,0,0]) camlever(0);
