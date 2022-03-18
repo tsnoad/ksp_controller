@@ -368,26 +368,37 @@ module bevel_co45(r=5) difference() {
 }
 
 module ard_micro_co() translate([0,-2+0.75,0]) {
+    ard_l = 33.1;
+    ard_w = 18.2;
+    ard_wh = ard_w/2;
+    ard_t = 1.6;
+    
     //pcb co
     hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
-        translate([17.5/2,0,-1]) cylinder(r=0.5,h=1.6);
-        translate([17.5/2,32.5,-1]) cylinder(r=0.5,h=1.6+2);
-        translate([17.5/2,2,-1]) cylinder(r=0.5,h=1.6+2);
+        translate([ard_wh,0,-1]) cylinder(r=0.5,h=ard_t);
+        translate([ard_wh,ard_l,-1]) cylinder(r=0.5,h=ard_t+2);
+        translate([ard_wh,2,-1]) cylinder(r=0.5,h=ard_t+2);
     }
         
     //co for end of pin headers
-    for(ixm=[0,1]) mirror([ixm,0,0]) hull() for(iy=[2.54,32.5]) {
-        translate([15.2/2-0.5,iy,-1-2.5]) cylinder(r=0.75,h=1.6+2.5);
-        translate([15.2/2+2.54+0.5,iy,-1-2.5]) cylinder(r=0.75,h=1.6+2.5);
+    for(ixm=[0,1]) mirror([ixm,0,0]) hull() {
+        for(iy=[2.5+2,ard_l-1.25+0.5]) {
+            translate([15.2/2,iy,-1-2.5]) cylinder(r=1.25,h=1.6+2.5+2);
+            translate([15.2/2+2.54+0.75,iy,-1-2.5]) cylinder(r=1.25,h=1.6+2.5+2);
+        }
+        for(iy=[2.5]) {
+            translate([15.2/2,iy,-1-2.5]) cylinder(r=1.25,h=1.6+2.5);
+            translate([15.2/2+2.54+0.75,iy,-1-2.5]) cylinder(r=1.25,h=1.6+2.5);
+        }
     }
     
     //hold-down bolt co
-    translate([0,32.5+0.5+m3_v_r,-25]) cylinder(r=m3_v_r,h=50);
+    translate([0,ard_l+0.5+m3_v_r,-25]) cylinder(r=m3_v_r,h=50);
     hull() {
-        translate([0,32.5+0.5+m3_v_r,-1]) cylinder(r=m3_v_r,h=50);
-        translate([0,32.5,-1]) cylinder(r=m3_v_r,h=50);
+        translate([0,ard_l+0.5+m3_v_r,-1]) cylinder(r=m3_v_r,h=50);
+        translate([0,ard_l,-1]) cylinder(r=m3_v_r,h=50);
     }
-    translate([0,32.5+0.5+m3_v_r,-50-1-2]) {
+    translate([0,ard_l+0.5+m3_v_r,-50-1-2]) {
         cylinder(r=2.5+0.5,h=50-0.4);
         translate([-m3_v_r,-m3_v_r,0]) cube([2*m3_v_r,2*m3_v_r,50]);
         translate([-sqrt(pow(2.5+0.5,2)-pow(m3_v_r,2)),-m3_v_r,0]) cube([2*sqrt(pow(2.5+0.5,2)-pow(m3_v_r,2)),2*m3_v_r,50-0.2]);
