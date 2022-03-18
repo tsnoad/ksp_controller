@@ -46,61 +46,107 @@ module cw_box_lid() {
 }
 
 module cw_box_frame() difference() {
-    union() {
+    f_h = 80;
+    
+    translate([0,0,80-f_h]) union() {
+        box_frame(70,70,60,60+40+5,5);
+        
+        box_frame(70,70,-60-8+5,60+40+5,7.5);
+        
         difference() {
-            box_frame(70,70,60,60+40+5,80);
+            box_frame(70,70,60,60+40+5,f_h);
             translate([-(70-5),-(60-5)-(40+5),-1]) cube([2*(70-5),2*(60-5)+40+5,100]);
         }
         
-        hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
-            translate([-(20-5),-(60-5)-(40+5),0]) cylinder(r=5,h=7.5);
-            translate([-(20-5),-(60-5)-(40+5)+40,0]) cylinder(r=5,h=7.5);
-        }
-        
         intersection() {
-            box_frame(70,70,60,60+40+5,80);
+            box_frame(70,70,60,60+40+5,f_h);
             
             union() {
                 for(iy=[60-7.5]) for(ixm=[0,1]) mirror([ixm,0,0]) {
                     translate([70-7.5,iy,0]) hull() {
-                        cylinder(r=7.5,h=80);
+                        cylinder(r=7.5,h=f_h);
                         
-                        translate([20,-20,0]) cylinder(r=7.5,h=80);
-                        translate([-20,20,0]) cylinder(r=7.5,h=80);
+                        translate([20,-20,0]) cylinder(r=7.5,h=f_h);
+                        translate([-20,20,0]) cylinder(r=7.5,h=f_h);
                         
-                        translate([20,20,0]) cylinder(r=7.5,h=80);
+                        translate([20,20,0]) cylinder(r=7.5,h=f_h);
                     }
                 }
                 for(iy=[(60+40+5-7.5)]) mirror([0,1,0]) for(ixm=[0,1]) mirror([ixm,0,0]) {
                     translate([70-7.5,iy,0]) hull() {
-                        cylinder(r=7.5,h=80);
+                        cylinder(r=7.5,h=f_h);
                         
-                        translate([20,-20,0]) cylinder(r=7.5,h=80);
-                        translate([-20,20,0]) cylinder(r=7.5,h=80);
+                        translate([20,-20,0]) cylinder(r=7.5,h=f_h);
+                        translate([-20,20,0]) cylinder(r=7.5,h=f_h);
                         
-                        translate([20,20,0]) cylinder(r=7.5,h=80);
+                        translate([20,20,0]) cylinder(r=7.5,h=f_h);
                     }
                 }
                 for(iy=[-(40+5)/2]) for(ixm=[0,1]) mirror([ixm,0,0]) {
                     translate([70-7.5,iy,0]) hull() {
-                        cylinder(r=7.5,h=80);
+                        cylinder(r=7.5,h=f_h);
                         
-                        translate([20,-20,0]) cylinder(r=7.5,h=80);
-                        translate([20,20,0]) cylinder(r=7.5,h=80);
+                        translate([20,-20,0]) cylinder(r=7.5,h=f_h);
+                        translate([20,20,0]) cylinder(r=7.5,h=f_h);
                     }
+                }
+                //positive area for arduino
+                for(ixm=[0,1]) mirror([ixm,0,0]) hull() {
+                    translate([(70-5),-(60+40+5-5),0]) cylinder(r=5,h=7.5+10);
+                    translate([(70-5),-(60+8),0]) cylinder(r=5,h=7.5+10);
+                
+                    translate([(70-5-2.5),-(60+40+5-5),0]) cylinder(r=5,h=7.5+10);
+                    translate([(70-5-2.5),-(60+8),0]) cylinder(r=5,h=7.5+10);
+                }
+                //positive area for mounting bolts
+                hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
+                    translate([20,-(60+40+5-5-4.5),0]) cylinder(r=5,h=16);
+                    translate([20,-(60+40+5-5),0]) cylinder(r=5,h=16);
+                }
+                //positive area for mounting bolts
+                mirror([0,1,0]) hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
+                    translate([40,-(60-5-4.5),0]) cylinder(r=5,h=16);
+                    translate([40,-(60-5),0]) cylinder(r=5,h=16);
                 }
             }
         }
     }
-    //arduino co
-    translate([0,-(60+40+5)+5,7.5]) ard_micro_co();
+    
+    //cutout to remove material on back
+    hull() for(i=[0,1]) mirror([i,0,0]) {
+        for(iy=[-(61-5),(43.5-5)]) {
+            translate([40-5,iy,-1]) cylinder(r=5,h=100);
+        }
+    }
+    
+    translate([0,0,80-f_h+26+14]) mirror([0,1,0]) {
+        //arduino co
+        for(i=[0,1]) mirror([i,0,0]) {
+            translate([(70-5-5-2.5),(60+8+14),-26-14+7.5]) rotate([0,0,90]) ard_micro_co();
+        }
+        //cutouts for bolts to mount to 8040 rail
+        for(ix=[-20,0,20]) for(iy=[(60+40+5-5-4)]) {
+            translate([ix,iy,-26-14]) m4_co(25,false,16);
+        }
+        for(ix=[-40,-20,0,20,40]) for(iy=[-(60-5-4)]) {
+            translate([ix,iy,-26-14]) m4_co(25,false,16);
+        }
+    }
     
     
     //front bolt co
     for(i=[0,1]) mirror([i,0,0]) {
         for(j=[(60-7.5),-(40+5)/2,-(60+40+5-7.5)]) {
-            translate([(70-7.5),j,0]) front_nut_co();
-            *translate([(70-7.5),j,64-30])  cylinder(r=m4_v_r,h=50);
+            //use hex nuts for front bolt closure
+            //translate([(70-7.5),j,-1]) cylinder(r=m4_v_r,h=100);
+            //translate([(70-7.5),j,80]) m4_co(25,false,8,8,true,true);
+                    
+            //use insert nuts
+            translate([(70-7.5),j,80]) {
+                translate([0,0,-25]) cylinder(r=m4_v_r,h=100);
+                translate([0,0,-8-0.5]) cylinder(r=(5.8+0.3+0.2)/2,h=50);
+                translate([0,0,-0.5]) cylinder(r1=(5.8+0.3+0.2)/2,r2=(5.8+0.3+0.2)/2+2,h=2);
+            }
         }
     }
 }
