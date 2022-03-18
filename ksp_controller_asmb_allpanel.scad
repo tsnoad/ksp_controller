@@ -1,8 +1,8 @@
-$fn=16;
+$fn=36;
 
-$vpr = [30, 30, 15];
-$vpt = [0, 0, 75];
-$vpd = 2500;
+$vpr = [30, 30, 14];
+$vpt = [0, 0, 0];
+$vpd = 1300;
 $t=1;
 
 include <ksp_controller_include.scad>;

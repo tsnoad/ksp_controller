@@ -1,8 +1,8 @@
 $fn=72;
 
-$vpr = [60, 0, 45];
-$vpt = [0, 0, 0];
-$vpd = 875;
+//$vpr = [60, 0, 45];
+//$vpt = [0, 0, 0];
+//$vpd = 875;
 $t=1;
 
 
@@ -38,6 +38,12 @@ include <ksp_controller_module_thrust.scad>;
     translate([(24+8+5)+0,-16,0]) rotate([90,0,0]) camlever(1,0,0.5);
 }
 
+*translate([0,0,6]) rotate([90,0,0]) translate([0,0,-2]) cylinder(r=6,h=4);
+*union() {
+    translate([24,0,0]) rotate([0,-piv_def_ang,0]) translate([-24,0,0]) camlever(0,0.5,0);
+    *translate([-24,0,0]) rotate([0,piv_def_ang,0]) translate([24,0,0]) camlever(1,0.5,0);
+}
+
 *base();
 *upright();
 *upright_withcam();
@@ -51,7 +57,7 @@ include <ksp_controller_module_thrust.scad>;
 *camactutor();
 
 *rotate([180,0,0]) piv_in_thrust();
-camactutor_thrust();
+*camactutor_thrust();
 
 *switch_box_lid();
 *cw_box_lid();
@@ -59,4 +65,4 @@ camactutor_thrust();
 *trans_box_lid();
 *thrust_box_lid();
 
-*cw_box_frame();
+cw_box_frame();
