@@ -222,18 +222,18 @@ module piv_out_camcent() union() {
     }
 }
 
-module camlever(mir=0,piv_w_exp=0,piv_exp=2) mirror([mir,0,0]) mirror([0,mir,0]) difference() {
+module camlever(mir=0,piv_w_exp=0,piv_w_sin=0) mirror([mir,0,0]) mirror([0,mir,0]) difference() {
     //piv_w_exp = 0; //0 for linear, 1 for exponential
     //piv_exp = 4; //exponent - higher for a more j-shaped displacement curve
     
-    piv_w_exp = 0.5;
-    piv_w_sin = 0;
-    piv_exp = 2;
+    //piv_w_exp = 0.5; //0 for linear, 1 for exponential
+    //piv_w_sin = 0; //0 for linear, 1 for sinusoidal
+    piv_exp = 2; //exponent - higher for a more j-shaped displacement curve (4 is way too high)
     
-    cam_res = ($fn > 18 ? 0.5 : 1);
+    //cam_res = ($fn > 18 ? 0.5 : 1);
     cam_res = 0.25;
     
-    bearing_r = 6.5+0.5;
+    bearing_r = 6+0.1;
     
     union() {
         hull() {
@@ -309,7 +309,7 @@ module camlever(mir=0,piv_w_exp=0,piv_exp=2) mirror([mir,0,0]) mirror([0,mir,0])
         }
     }
     
-    translate([0,-4-1,6]) {
+    translate([0,0,6]) {
         for(def=[-10:cam_res:10-cam_res]) {
             //this is the deflection equation
             //notes about linear vs exponentional
@@ -323,22 +323,18 @@ module camlever(mir=0,piv_w_exp=0,piv_exp=2) mirror([mir,0,0]) mirror([0,mir,0])
             piv_def2 = abs(pow(def2,piv_exp)*(5*piv_w_exp)/pow(10,piv_exp)) + (5*piv_w_sin/2*(sin((def2-5)*180/10)+1)) + abs(def2*(1-piv_w_exp-piv_w_sin)/2);
             piv_def2_ang = asin(piv_def2/32);
             
-            hull() {
-                //rotate around the cam pivot
-                translate([24,0,-(22-16)]) rotate([0,piv_def_ang,0]) translate([-24,0,(22-16)]) {
-                    //rotate around the joystick pivot
-                    translate([0,0,-22]) rotate([0,def,0]) translate([0,0,22]) {
-                        rotate([-90,0,0]) cylinder(r=bearing_r,h=50,$fn=$fn*2);
-                    }
-                }
-                
-                //rotate around the cam pivot
-                translate([24,0,-(22-16)]) rotate([0,piv_def2_ang,0]) translate([-24,0,(22-16)]) {
-                    //rotate around the joystick pivot
-                    translate([0,0,-22]) rotate([0,def2,0]) translate([0,0,22]) {
-                        rotate([-90,0,0]) cylinder(r=bearing_r,h=50,$fn=$fn*2);
-                    }
-                }
+            hull() camlever_track(piv_def_ang, def, piv_def2_ang, def2) {
+                rotate([-90,0,0]) cylinder(r=bearing_r+0.5,h=2-0.5-0.25,$fn=$fn*2);
+                rotate([-90,0,0]) cylinder(r=bearing_r,h=2-0.25,$fn=$fn*2);
+            }
+            
+            hull() camlever_track(piv_def_ang, def, piv_def2_ang, def2) {
+                rotate([-90,0,0]) cylinder(r=bearing_r,h=50,$fn=$fn*2);
+            }
+            
+            hull() camlever_track(piv_def_ang, def, piv_def2_ang, def2) {
+                rotate([-90,0,0]) translate([0,0,4-(2-0.25)]) cylinder(r=bearing_r,h=50,$fn=$fn*2);
+                rotate([-90,0,0]) translate([0,0,4-(2-0.5-0.25)]) cylinder(r=bearing_r+0.5,h=50,$fn=$fn*2);
             }
         }
         
@@ -350,24 +346,31 @@ module camlever(mir=0,piv_w_exp=0,piv_exp=2) mirror([mir,0,0]) mirror([0,mir,0])
         piv_def2 = abs(pow(def2,piv_exp)*(5*piv_w_exp)/pow(10,piv_exp)) + (5*piv_w_sin/2*(sin((def2-5)*180/10)+1)) + abs(def2*(1-piv_w_exp-piv_w_sin)/2);
         piv_def2_ang = asin(piv_def2/32);
         
-        hull() {
-            //rotate around the cam pivot
-            translate([24,0,-(22-16)]) rotate([0,piv_def_ang,0]) translate([-24,0,(22-16)]) {
-                //rotate around the joystick pivot
-                translate([0,0,-22]) rotate([0,def,0]) translate([0,0,22]) {
-                    rotate([-90,0,0]) cylinder(r=bearing_r,h=50,$fn=$fn*2);
-                }
-            }
-            
-            //rotate around the cam pivot
-            translate([24,0,-(22-16)]) rotate([0,piv_def2_ang,0]) translate([-24,0,(22-16)]) {
-                //rotate around the joystick pivot
-                translate([0,0,-22]) rotate([0,def2,0]) translate([0,0,22]) {
-                    rotate([-90,0,0]) cylinder(r=bearing_r,h=50,$fn=$fn*2);
-                }
-            }
+        *hull() camlever_track(piv_def_ang, def, piv_def2_ang, def2) {
+            rotate([-90,0,0]) cylinder(r=bearing_r+0.5,h=1,$fn=$fn*2);
+            rotate([-90,0,0]) cylinder(r=bearing_r,h=1+0.5,$fn=$fn*2);
         }
-        
+        *hull() camlever_track(piv_def_ang, def, piv_def2_ang, def2) {
+            rotate([-90,0,0]) cylinder(r=bearing_r,h=50,$fn=$fn*2);
+        }
+    }
+}
+
+module camlever_track(piv_def_ang, def, piv_def2_ang, def2) {
+    //rotate around the cam pivot
+    translate([24,0,-(22-16)]) rotate([0,piv_def_ang,0]) translate([-24,0,(22-16)]) {
+        //rotate around the joystick pivot
+        translate([0,0,-22]) rotate([0,def,0]) translate([0,0,22]) {
+            children();
+        }
+    }
+    
+    //rotate around the cam pivot
+    translate([24,0,-(22-16)]) rotate([0,piv_def2_ang,0]) translate([-24,0,(22-16)]) {
+        //rotate around the joystick pivot
+        translate([0,0,-22]) rotate([0,def2,0]) translate([0,0,22]) {
+            children();
+        }
     }
 }
 
