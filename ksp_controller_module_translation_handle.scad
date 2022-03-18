@@ -74,8 +74,8 @@ difference() {
 
     //co for nut for bolt to attach to pivots
     for(i=[0,1]) mirror([0,i,0]) translate([0,(8+4),0]) {
-        translate([0,0,-1]) cylinder(r=m4_v_r,h=1+8+8);
-        translate([0,0,4]) m4_endnut_vert_co();
+        translate([0,0,-1]) cylinder(r=m4_v_r,h=1+6+8+8);
+        translate([0,0,6]) m4_endnut_vert_co();
     }
 }
 

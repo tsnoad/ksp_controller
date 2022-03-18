@@ -97,35 +97,11 @@ difference() {
         translate([-20,42.5,115]) sphere(r=5);
     }
     
-    *for(i=[(8+4),-(8+4)]) translate([0,i,-1]) {
-        cylinder(r=2+0.25,h=4+4+8);
-        //translate([0,0,4]) hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=0.5,h=4+4+8);
-        translate([0,0,4]) cylinder(r=3.5/cos(30)+0.5,h=8);
-        translate([0,0,4+8]) sphere(r=3.5/cos(30)+0.5);
-        translate([0,0,4+8]) rotate([7.5,0,0]) cylinder(r=3.5/cos(30)+0.5,h=200);
-    }
-    
-    
+
+    //co for nut for bolt to attach to pivots
     for(i=[0,1]) mirror([0,i,0]) translate([0,(8+4),0]) {
-        translate([0,0,-1]) cylinder(r=m4_v_r,h=1+8+8);
-        
-        //washer co
-        translate([0,0,4]) hull() {
-            translate([0,-1,0]) cylinder(r=5,h=1.75-0.5);
-            translate([0,50,0]) cylinder(r=5,h=1.75-0.5);
-            
-            translate([0,-1,0]) cylinder(r=5-2,h=1.75-0.5+2);
-            translate([0,50,0]) cylinder(r=5-2,h=1.75-0.5+2);
-        }
-            
-        //nut co
-        translate([0,0,4]) hull() {
-            translate([0,-1,0]) cylinder(r=m4n_v_r,h=9);
-            translate([0,50,0]) cylinder(r=m4n_v_r,h=9);
-            
-            translate([0,-1,0]) cylinder(r=m4n_v_r-1,h=9+1);
-            translate([0,50,0]) cylinder(r=m4n_v_r-1,h=9+1);
-        }
+        translate([0,0,-1]) cylinder(r=m4_v_r,h=1+6+8+8);
+        translate([0,0,6]) m4_endnut_vert_co();
     }
 }
 
