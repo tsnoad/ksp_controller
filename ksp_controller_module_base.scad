@@ -38,7 +38,8 @@ module base2() {
     difference() {
         union() {
             translate([0,0,-14-26]) box_frame(70,70,60+8,60,14+8);
-            translate([0,0,-14-26]) box_frame(70,70,60+8,60,5);
+            //translate([0,0,-14-26]) box_frame(70,70,60+8,60,5);
+            translate([0,0,-14-26]) box_frame(70,70,60+40+5,60,7.5);
            
             hull() {
                 translate([(70-5),(20-5),-26-14]) cylinder(r=5,h=14+26+16);
@@ -113,19 +114,32 @@ module base2() {
                         }
                     }
                 }
-                hull() {
+                //positive area for arduino
+                *hull() {
                     translate([(70-5),-(60+40+5-5),0]) cylinder(r=5,h=7.5);
                     translate([(70-5),-(60+8),0]) cylinder(r=5,h=7.5);
                 
                     translate([(70-5-50),-(60+40+5-5),0]) cylinder(r=5,h=7.5);
                     translate([(70-5-50),-(60+8),0]) cylinder(r=5,h=7.5);
                 }
-                hull() {
+                *hull() {
                     translate([(70-5),-(60+40+5-5),0]) cylinder(r=5,h=7.5+10);
                     translate([(70-5),-(60+8),0]) cylinder(r=5,h=7.5+10);
                 
                     translate([(70-5-10),-(60+40+5-5),0]) cylinder(r=5,h=7.5+10);
                     translate([(70-5-10),-(60+8),0]) cylinder(r=5,h=7.5+10);
+                }
+                for(ixm=[0,1]) mirror([ixm,0,0]) hull() {
+                    translate([(70-5),-(60+40+5-5),0]) cylinder(r=5,h=7.5+10);
+                    translate([(70-5),-(60+8),0]) cylinder(r=5,h=7.5+10);
+                
+                    translate([(70-5-2.5),-(60+40+5-5),0]) cylinder(r=5,h=7.5+10);
+                    translate([(70-5-2.5),-(60+8),0]) cylinder(r=5,h=7.5+10);
+                }
+                //positive area for mounting bolts
+                hull() for(ixm=[0,1]) mirror([ixm,0,0]) {
+                    translate([20,-(60+40+5-5-4.5),0]) cylinder(r=5,h=16);
+                    translate([20,-(60+40+5-5),0]) cylinder(r=5,h=16);
                 }
             }
             
@@ -143,8 +157,16 @@ module base2() {
             //front bolt co
             for(i=[0,1]) mirror([i,0,0]) {
                 for(j=[(60-7.5),-(60-7.5),-(60+40+5-7.5)]) {
-                    translate([(70-7.5),j,0]) front_nut_co();
-                    *translate([(70-7.5),j,64-30])  cylinder(r=m4_v_r,h=50);
+                    //use hex nuts for front bolt closure
+                    //translate([(70-7.5),j,-1]) cylinder(r=m4_v_r,h=100);
+                    //translate([(70-7.5),j,80]) m4_co(25,false,8,8,true,true);
+                    
+                    //use insert nuts
+                    translate([(70-7.5),j,80]) {
+                        translate([0,0,-25]) cylinder(r=m4_v_r,h=100);
+                        translate([0,0,-8-0.5]) cylinder(r=(5.8+0.3+0.2)/2,h=50);
+                        translate([0,0,-0.5]) cylinder(r1=(5.8+0.3+0.2)/2,r2=(5.8+0.3+0.2)/2+2,h=2);
+                    }
                 }
             }
         }
@@ -187,7 +209,9 @@ module base2() {
         mirror([1,0,0]) translate([(brh+2+2),60-5,24]) rotate([0,0,180]) bevel_co(4);
         
         //arduino co
-        translate([(70-20),(60+8+12),-26-14+7.5]) rotate([0,0,90]) ard_micro_co();
+        for(i=[0,1]) mirror([i,0,0]) {
+            translate([(70-5-5-2.5),(60+8+14),-26-14+7.5]) rotate([0,0,90]) ard_micro_co();
+        }
         
         //wire routing co
         translate([brh+5+8,-20,-26+8+5]) rotate([-90,0,0]) hull() {
@@ -196,8 +220,11 @@ module base2() {
         }
         
         //cutouts for bolts to mount to 8040 rail
-        for(ixm=[0,1]) mirror([ixm,0,0]) for(iy=[-(60-12),(60+40+5-12)]) {
-            translate([20,iy,-26-14]) m4_co(25,false,8);
+        for(ix=[-20,0,20,40]) for(iy=[-(60-5-4)]) {
+            translate([ix,iy,-26-14]) m4_co(25,false,16);
+        }
+        for(ix=[-20,0,20]) for(iy=[(60+40+5-5-4)]) {
+            translate([ix,iy,-26-14]) m4_co(25,false,16);
         }
         
         //cutout to prevent fouling switches
