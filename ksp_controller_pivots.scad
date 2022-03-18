@@ -69,8 +69,8 @@ module piv_in() {
                     
                     //actuator body
                     hull() for(i=[0:3]) rotate([0,0,i*90]) translate([8-2,8-2,0]) {
-                        cylinder(r=2,h=26+8-2);
-                        cylinder(r=0.01,h=26+8);
+                        cylinder(r=2,h=26+8+4-2);
+                        cylinder(r=0.01,h=26+8+4);
                     }
                 }
                 *translate([0,50,0]) rotate([90,0,0]) cylinder(r=26+8,h=100,$fn=$fn*4);
@@ -95,7 +95,7 @@ module piv_in() {
         }
         
         //handle nut co
-        for(i=[0,1]) mirror([0,i,0]) translate([0,8+4,4]) mirror([0,0,1]) m4_co(25, false, 0);
+        for(i=[0,1]) mirror([0,i,0]) translate([0,8+4,8-6]) mirror([0,0,1]) m4_co(25, false, 0);
     }
 }
 
@@ -124,8 +124,8 @@ module piv_in_thrust() {
                     
                     //actuator body
                     hull() for(i=[0:3]) rotate([0,0,i*90]) translate([8-2,8-2,0]) {
-                        cylinder(r=2,h=26+8-2);
-                        cylinder(r=0.01,h=26+8);
+                        cylinder(r=2,h=26+8+4-2);
+                        cylinder(r=0.01,h=26+8+4);
                     }
                 }
                 *translate([0,50,0]) rotate([90,0,0]) cylinder(r=26+8,h=100,$fn=$fn*4);
@@ -155,18 +155,32 @@ module piv_in_thrust() {
         for(i=[0,1]) mirror([i,0,0]) for(j=[0,1]) mirror([0,j,0]) translate([12,20,8]) m4_co(25, false, 8, 8);
         
         //handle nut co
-        rotate([0,0,90]) for(i=[0,1]) mirror([0,i,0]) translate([0,8+4,4]) mirror([0,0,1]) m4_co(25, false, 0);
+        rotate([0,0,90]) for(i=[0,1]) mirror([0,i,0]) translate([0,8+4,8-6]) mirror([0,0,1]) m4_co(25, false, 0);
     }
 }
 
 module piv_out_camcent() union() {
     difference() {
         union() {
-            hull() for(i=[0,8]) translate([0,0,i]) {
-                rotate([90,0,0]) translate([0,0,-brh-8+0.25]) cylinder(r=8+12,h=br+16-0.25);
-                rotate([90,0,0]) translate([0,0,-brh-8+0.25]) cylinder(r=(br-8)/2,h=(br+16)/2-0.25);
-                
-                rotate([0,90,0]) translate([0,0,-brh]) cylinder(r=8+12,h=br);
+            difference() {
+                union() {
+                    hull() for(i=[0,8]) translate([0,0,i]) {
+                        rotate([90,0,0]) translate([0,0,-brh-8+0.25]) cylinder(r=8+12,h=br+16-0.25);
+                        rotate([90,0,0]) translate([0,0,-brh-8+0.25]) cylinder(r=(br-8)/2,h=(br+16)/2-0.25);
+                        
+                        rotate([0,90,0]) translate([0,0,-brh]) cylinder(r=8+12,h=br);
+                    }
+                }
+            
+                //cutout to prevent cam arm fouling
+                hull() for(i=[0,1]) mirror([i,0,0]) {
+                    translate([24-8-4,brh+8-2,4]) rotate([-90,0,0]) cylinder(r=4,h=50);
+                    translate([24-8-4,brh+8-2,8]) rotate([-90,0,0]) cylinder(r=4,h=50);
+                }
+            }
+            hull() {
+                translate([0,0,0]) rotate([-90,0,0]) cylinder(r=4,h=brh+8-0.25);
+                for(i=[0,1]) mirror([i,0,0]) translate([4,0,-4]) rotate([-90,0,0]) cylinder(r=4,h=brh+8-0.25);
             }
         }
         
@@ -182,8 +196,8 @@ module piv_out_camcent() union() {
         
         //clearance for inner pivot
         mirror([0,0,1]) {
-            translate([0,brh,0]) sep_co(8+4+2);
-            translate([0,-brh,0]) sep_co(8+4+2);
+            translate([0,brh,0]) sep_co(8+4+2-0.25);
+            translate([0,-brh,0]) sep_co(8+4+2-0.25);
         }
         
         //clearance for outer pivot
@@ -361,8 +375,8 @@ module camactutor() {
     difference() {
         union() {
             hull() {
-                translate([0,8,0]) cylinder(r=12,h=35);
-                translate([0,-8,0]) cylinder(r=12,h=35);
+                translate([0,8,0]) cylinder(r=12,h=56);
+                translate([0,-8,0]) cylinder(r=12,h=56);
             }
             difference() {
                 hull() {
@@ -415,7 +429,7 @@ module camactutor() {
         
         //cable routing cutout
         hull() {
-            translate([0,0,35]) sphere(r=5);
+            translate([0,0,56]) sphere(r=5);
             translate([0,0,35-6]) {
                 sphere(r=5);
                 translate([0,-5*tan(22.5),0]) rotate([-90,0,0]) cylinder(r=5,h=2*5*tan(22.5));
@@ -448,8 +462,8 @@ module camactutor_thrust() rotate([0,0,90]) {
     difference() {
         union() {
             rotate([0,0,90]) hull() {
-                translate([0,8,0]) cylinder(r=12,h=35);
-                translate([0,-8,0]) cylinder(r=12,h=35);
+                translate([0,8,0]) cylinder(r=12,h=56);
+                translate([0,-8,0]) cylinder(r=12,h=56);
             }
             hull() {
                 translate([(8+12-4),-(24),0]) cylinder(r=4,h=8+4);
@@ -514,7 +528,7 @@ module camactutor_thrust() rotate([0,0,90]) {
         //cable routing cutout
         rotate([0,0,-90]) {
             hull() {
-                translate([0,0,35]) sphere(r=5);
+                translate([0,0,56]) sphere(r=5);
                 translate([0,0,35-6]) {
                     sphere(r=5);
                     translate([0,-5*tan(22.5),0]) rotate([-90,0,0]) cylinder(r=5,h=2*5*tan(22.5));
