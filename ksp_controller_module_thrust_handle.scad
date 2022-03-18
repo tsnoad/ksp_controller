@@ -29,9 +29,11 @@ m_ha = 30;
 }
 
 
+*rotate([0,0,-90]) translate([0,0,-35]) camactutor_thrust();
+
 difference() {
     union() {
-        translate([6+8,45+7.5,-((32-12)*sin(30)-25-(12))]) rotate([90,0,0]) union() {
+        translate([-4+12+8,45+7.5,-((32-12)*sin(30)-25-(12))]) rotate([90,0,0]) union() {
             //switch hood
             difference() {
                 hull() {
@@ -272,16 +274,17 @@ difference() {
                 }
             }
         }
-        intersection() {
-            hull() {
-                translate([6,0,0]) cylinder(r=12,h=35);
-                translate([6-20*tan(15),-20,0]) cylinder(r=12,h=35);
-                translate([6-20*tan(15),20,0]) cylinder(r=12,h=35);
-                
-                //translate([6-50,0,0]) cylinder(r=12,h=35);
-                //translate([6-50,50/tan(30),0]) cylinder(r=12,h=35);
-            }
-            translate([6+4-ba_o,-50,0]) cube([100,100,100]);
+        
+        echo(-4+12+8-(32-12)*cos(30)-25*tan(30));
+        
+        //mounting interface
+        *hull() for(i=[0,1]) mirror([0,i,0]) translate([20,-12,0]) {
+            translate([0,0,2]) rotate([0,-90,0]) cylinder(r=2,h=20-(-4+12+8-(32-12)*cos(30)-25*tan(30))+12);
+            translate([0,-10,2+12-2]) rotate([0,-90,0]) cylinder(r=2,h=20-(-4+12+8-(32-12)*cos(30)-25*tan(30))+12);
+        }
+        hull() for(i=[0,1]) mirror([0,i,0]) translate([20,-12,0]) {
+            translate([0,0,2]) rotate([0,-90,0]) cylinder(r=2,h=20+20);
+            translate([0,-4,2+4-2]) rotate([0,-90,0]) cylinder(r=2,h=20+20);
         }
     }
     
@@ -303,7 +306,6 @@ difference() {
             translate([0,-5,0]) rotate([-90,0,0]) cylinder(r=5*tan(22.5),h=2*5);
         }
     }
-    
     hull() {
         translate([0,0,15]) {
             sphere(r=5);
@@ -316,12 +318,18 @@ difference() {
         }
     }
     
+    //mounting bolt endnut cos
     for(i=[0,1]) mirror([i,0,0]) rotate([0,0,90]) translate([0,(8+4),0]) {
         translate([0,0,-1]) hull() {
-            cylinder(r=m4_v_r,h=1+4+8);
-            rotate([0,0,90]) translate([-m4_v_r*tan(22.5),-m4_v_r,0]) cube([2*m4_v_r*tan(22.5),2*m4_v_r,1+4+8]);
+            cylinder(r=m4_v_r,h=1+6+8+8);
+            rotate([0,0,90]) translate([-m4_v_r*tan(22.5),-m4_v_r,0]) cube([2*m4_v_r*tan(22.5),2*m4_v_r,1+6+8+8]);
         }
-        translate([0,0,4]) m4_endnut_vert_co(5);
+        //translate([0,0,4]) m4_endnut_vert_co(5);
+        translate([0,0,6]) rotate([-90,0,0]) hull() m4_endnut_vert_co_wid(6) union() {
+            for(iz=[0,50]) {
+                translate([0,0,iz]) rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) translate([3.5/cos(30),0,0]) cylinder(r=max(0.01,m4n_v_r-3.5),h=8);
+            }
+        }
     }
 }
 
