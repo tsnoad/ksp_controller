@@ -3,12 +3,12 @@ module att_box_lid() {
         box_lid(70,70,60,60+40+5);
         
         //central co
-        hull() for(i=[0:3]) rotate([0,0,i*90]) {
-            translate([(25-2.5),(25-2.5),-1]) cylinder(r=2.5,h=50);
+        hull() for(i=[0,1]) mirror([i,0,0]) for(j=[0,1]) mirror([0,j,0]) {
+            translate([(25-2.5),(32.5-2.5),-1]) cylinder(r=2.5,h=50);
         }
-        hull() for(i=[0:3]) rotate([0,0,i*90]) {
-            translate([(25-2.5),(25-2.5),2.5]) cylinder(r=2.5,h=50);
-            translate([(25-2.5),(25-2.5),5]) cylinder(r=5,h=50);
+        hull() for(i=[0,1]) mirror([i,0,0]) for(j=[0,1]) mirror([0,j,0]) {
+            translate([(25-2.5),(32.5-2.5),2.5]) cylinder(r=2.5,h=50);
+            translate([(25-2.5),(32.5-2.5),5]) cylinder(r=5,h=50);
         }
         
         //bolt co
