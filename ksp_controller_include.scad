@@ -474,18 +474,18 @@ module m4_co(thread_length=25, thread_horiz=false, head_offset=0, nut_offset=fal
             //translate([0,0,-50-nut_offset]) hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_h_r-3.5,h=50);
             
         } else {
-            translate([0,0,-50-nut_offset]) {
+            translate([0,0,-75-nut_offset]) {
                 if(nut_overhung) {
-                    hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50-0.2);
+                    hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=max(m4n_v_r-3.5,0.01),h=75-0.2);
                     
-                    hull() for(i=[0:2]) rotate([0,0,i*120]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50);
+                    hull() for(i=[0:2]) rotate([0,0,i*120]) translate([3.5/cos(30),0,0]) cylinder(r=max(m4n_v_r-3.5,0.01),h=75);
                 } else {
-                    hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50);
+                    hull() for(i=[0:5]) rotate([0,0,i*60]) translate([3.5/cos(30),0,0]) cylinder(r=max(m4n_v_r-3.5,0.01),h=75);
                 }
                     
                 hull() for(i=[0:5]) rotate([0,0,i*60]) {
-                    translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=50-3);
-                    translate([3.5/cos(30),0,0]) cylinder(r=m4n2_v_r-3.5,h=50-3-2);
+                    translate([3.5/cos(30),0,0]) cylinder(r=max(m4n_v_r-3.5,0.01),h=75-3);
+                    translate([3.5/cos(30),0,0]) cylinder(r=m4n2_v_r-3.5,h=75-3-2);
                 }
             }
         }
@@ -571,7 +571,7 @@ module m4_endnut_vert_co_wid(w=0) {
     if(w!=0) translate([-w,0,0]) children();
 }
 
-module m4_endnut_vert_co(w=0) rotate([-90,0,0]) {
+module m4_endnut_vert_co() rotate([-90,0,0]) {
     //washer co
     *hull() {
         for(iz=[0,50]) translate([0,0,iz]) {
@@ -583,17 +583,22 @@ module m4_endnut_vert_co(w=0) rotate([-90,0,0]) {
     }
         
     //nut co
-    hull() m4_endnut_vert_co_wid(w) union() {
+    hull() union() {
         for(iz=[0,50]) {
-            translate([0,0,iz]) rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) translate([3.5/cos(30),0,0]) cylinder(r=m4n_v_r-3.5,h=8);
+            translate([0,0,iz]) rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) translate([3.5/cos(30),0,0]) cylinder(r=max(0.01,m4n_v_r-3.5),h=8);
         }
     }
-    hull() m4_endnut_vert_co_wid(w) {
+    hull() {
         for(iz=[0,50]) {
             translate([0,0,iz]) rotate([90,0,0]) for(i=[0:5]) rotate([0,0,30+i*60]) translate([3.5/cos(30),0,0]) {
-                translate([0,0,4]) cylinder(r=m4n_v_r-3.5,h=8-4);
+                translate([0,0,4]) cylinder(r=max(0.01,m4n_v_r-3.5),h=8-4);
                 translate([0,0,4+2]) cylinder(r=m4n2_v_r-3.5,h=8-(4+2));
             }
+        }
+    }
+    hull() {
+        rotate([90,0,0]) for(i=[0:2]) rotate([0,0,30+i*120]) translate([3.5/cos(30),0,0]) {
+            translate([0,0,4+2]) cylinder(r=m4n2_v_r-3.5,h=8-(4+2)+0.2);
         }
     }
 }
