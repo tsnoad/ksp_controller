@@ -10,13 +10,17 @@ char keys[ROWS][COLS] = {
   {'m','n','o','p'},
   {'q','r','s','t'}
 };
-byte rowPins[ROWS] = {9,10,12,14,15}; //connect to the row pinouts of the keypad
-byte colPins[COLS] = {4,5,6,7}; //connect to the column pinouts of the keypad
+byte rowPins[ROWS] = {5,6,7,8,9}; //connect to the row pinouts of the keypad
+byte colPins[COLS] = {15,14,16,10}; //connect to the column pinouts of the keypad
 
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
 byte ledPin = 13;
 boolean blink = false;
+
+int tog_sw1 = 2;
+int tog_sw2 = 3;
+//int pwm_pin = 
 
 void setup(){
   Serial.begin(9600);
