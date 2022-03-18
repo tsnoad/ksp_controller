@@ -32,15 +32,15 @@ include <ksp_controller_module_base.scad>;
 //arduino fit test
 difference() {
     mirror([0,1,0]) translate([0,0,-26-14]) {
-        hull() for(j=[(70-5),(70-5-75)]) for(i=[-12,12]) {
+        hull() for(j=[(70-5),(70-5-45)]) for(i=[-12,12]) {
             translate([j,i,0]) cylinder(r=5,h=7.5);
         }
-        hull() for(j=[(70-5),(70+5-30-15)]) for(i=[-12,12]) {
+        hull() for(j=[(70-5),(70-5-5)]) for(i=[-12,12]) {
             translate([j,i,0]) cylinder(r=5,h=7.5+10);
         }
     }
     //arduino co
-    translate([(70-15-30),0,-26-14+7.5]) rotate([0,0,90]) ard_micro_co();
+    translate([(70-5-10),0,-26-14+7.5]) rotate([0,0,90]) ard_micro_co();
 }
 
 
