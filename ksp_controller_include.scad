@@ -4,15 +4,15 @@ br = 72; //width of pivot hinge
 brh = br/2;
 
 //nut and bolt dimensions (including clearance)
-m4_v_r = (4+0.2)/2; // radius for M4 cutouts (vertical to buildplate)
-m4_h_r = (4+0.4)/2; // radius for M4 cutouts (horizontal to buildplate)
-m4n_v_r = (7+0.1)/2; // radius for M4 nut cutouts (horizontal to buildplate)
+m4_v_r = (4+0.3-0.1)/2; // radius for M4 cutouts (vertical to buildplate)
+m4_h_r = (4+0.2-0.1)/2; // radius for M4 cutouts (horizontal to buildplate)
+m4n_v_r = (7+0.2-0.2)/2; // radius for M4 nut cutouts (horizontal to buildplate)
 m4n2_v_r = m4n_v_r + 0.4; //for wedging m4 nuts in m4_co() function
-m4n_h_r = (7+0.1)/2; // radius for M4 nut cutouts (horizontal to buildplate)
+m4n_h_r = (7+0.3-0.1)/2; // radius for M4 nut cutouts (horizontal to buildplate)
 m4n2_h_r = m4n_h_r + 0.4; //for wedging m4 nuts in m4_co() function
 
-m3_v_r = 1.5+0.125; // radius for M3 cutouts (vertical to buildplate)
-m3n_v_r = 2.75+0.125; // radius for M3 nut cutouts (vertical to buildplate)
+m3_v_r = (3+0.35-0.1)/2; // radius for M3 cutouts (vertical to buildplate)
+//m3n_v_r = (5.5+0.25)/2; // radius for M3 nut cutouts (vertical to buildplate)
 
 //microswitch and pivot travel parameters
 ms_xt = 2; //extra travel (before contact with lever)
