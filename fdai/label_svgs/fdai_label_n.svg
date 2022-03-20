@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="24mm"
+   height="12mm"
+   viewBox="0 0 24 12"
+   version="1.1"
+   id="svg8">
+  <defs
+     id="defs2">
+    <rect
+       x="23.540173"
+       y="170.27391"
+       width="57.281086"
+       height="20.401482"
+       id="rect835" />
+  </defs>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <g
+       aria-label="N"
+       transform="translate(-40.046306,-170.22233)"
+       id="text833"
+       style="font-weight:bold;font-size:10.5833px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;white-space:pre;shape-inside:url(#rect835)">
+      <path
+         d="m 49.35914,179.95853 h 1.142045 v -5.35366 h 0.02067 l 3.405466,5.35366 h 1.080034 v -7.5344 H 53.86531 v 5.35366 h -0.02067 l -3.410634,-5.35366 H 49.35914 Z"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'DIN Alternate';-inkscape-font-specification:'DIN Alternate Bold'"
+         id="path844" />
+    </g>
+  </g>
+</svg>

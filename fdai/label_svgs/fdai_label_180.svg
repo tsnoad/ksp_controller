@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="24mm"
+   height="12mm"
+   viewBox="0 0 24 12"
+   version="1.1"
+   id="svg8">
+  <defs
+     id="defs2">
+    <rect
+       x="23.540173"
+       y="170.27391"
+       width="57.281086"
+       height="20.401482"
+       id="rect835" />
+  </defs>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <g
+       aria-label="180"
+       transform="translate(-40.046306,-170.22233)"
+       id="text833"
+       style="font-weight:bold;font-size:10.5833px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;white-space:pre;shape-inside:url(#rect835)">
+      <path
+         d="m 46.604795,173.56617 v 6.39236 h 1.080034 v -7.5344 h -1.080034 l -1.069699,0.78031 v 1.14721 0 l 1.069699,-0.78548 z"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'DIN Alternate';-inkscape-font-specification:'DIN Alternate Bold'"
+         id="path896" />
+      <path
+         d="m 51.10063,174.51702 q 0.01033,-0.53744 0.335896,-0.81132 0.320393,-0.26355 0.73897,-0.26355 0.434081,0 0.754474,0.26355 0.315225,0.27388 0.32556,0.81132 -0.01033,0.52193 -0.32556,0.79581 -0.320393,0.28422 -0.754474,0.28422 -0.418577,0 -0.73897,-0.28422 -0.325561,-0.27388 -0.335896,-0.79581 z m -1.21956,3.2401 q 0.01033,1.01802 0.687294,1.6278 0.645954,0.62528 1.607132,0.63562 0.966347,-0.0103 1.63297,-0.63562 0.656289,-0.60978 0.666624,-1.6278 -0.01034,-1.09037 -0.888831,-1.69498 0.335895,-0.29456 0.547768,-0.67696 0.201537,-0.35657 0.201537,-0.84749 -0.01033,-0.94051 -0.614947,-1.55546 -0.599445,-0.60978 -1.545121,-0.62011 -0.930172,0.0103 -1.519282,0.62011 -0.625283,0.61495 -0.635618,1.55546 0,0.49092 0.222208,0.84749 0.191202,0.3824 0.527098,0.67696 -0.878497,0.60461 -0.888832,1.69498 z m 1.080034,-0.0103 q 0.01033,-0.52709 0.372069,-0.85782 0.346231,-0.32556 0.842323,-0.3359 0.511595,0.0103 0.857826,0.3359 0.351399,0.33073 0.361734,0.85782 -0.01033,0.51677 -0.361734,0.84749 -0.346231,0.34624 -0.857826,0.34624 -0.496092,0 -0.842323,-0.34624 -0.361734,-0.33072 -0.372069,-0.84749 z"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'DIN Alternate';-inkscape-font-specification:'DIN Alternate Bold'"
+         id="path898" />
+      <path
+         d="m 58.319805,177.78813 q -0.03101,1.14204 -1.059364,1.15238 -1.033525,-0.0103 -1.054196,-1.15238 v -3.1936 q 0.02067,-1.13171 1.054196,-1.15238 1.028358,0.0207 1.059364,1.15238 z m -3.193594,0.062 q 0.01034,1.03869 0.666624,1.60196 0.614948,0.5581 1.467606,0.56844 0.878497,-0.0103 1.493444,-0.56844 0.625283,-0.56327 0.645954,-1.60196 v -3.32279 q -0.02067,-1.04386 -0.645954,-1.60713 -0.614947,-0.5581 -1.493444,-0.5581 -0.852658,0 -1.467606,0.5581 -0.656288,0.56327 -0.666624,1.60713 z"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'DIN Alternate';-inkscape-font-specification:'DIN Alternate Bold'"
+         id="path900" />
+    </g>
+  </g>
+</svg>
