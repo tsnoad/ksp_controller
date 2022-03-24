@@ -18,7 +18,7 @@ mt_wh = mt_w / 2;
 pi=3.141592654;
 
 rotate([0,$t*360,0]) {
-    fdai_pitch_yoke();
+    *fdai_pitch_yoke();
     
     //roll bearings
     *translate([0,60+2+2+8+27.5-2.5,0]) rotate([-90,0,0]) {
@@ -31,10 +31,20 @@ rotate([0,$t*360,0]) {
         }
     }
     
+    //base
+    translate([0,60+2+2+8+27.5-2.5,0]) rotate([-90,0,0]) difference() {
+        hull() for(ixm=[0,1]) mirror([ixm,0,0]) for(iym=[0,1]) mirror([0,iym,0]) {
+            translate([20,20,10]) cylinder(r=5,h=8+2.5);
+        }
+        
+        translate([0,0,10+8]) cylinder(r=(35/2+0.25),h=100);
+        translate([0,0,0]) cylinder(r=10+0.5,h=100);
+    }
+    
     
     
     //roll pulley
-    *translate([0,(60+2+2+8+27.5-2.5+10+8+10)+12,0]) rotate([90,0,0]) {
+    translate([0,(60+2+2+8+27.5-2.5+10+8+10)+12,0]) rotate([90,0,0]) {
         difference() {
             union() {
                 gt2_pulley(48,12);
@@ -75,7 +85,7 @@ rotate([0,$t*360,0]) {
     *translate([-(60+2+2+8-2.4),sqrt(pow(79.8,2)-pow(20,2)),20]) rotate([0,-90,0]) rotate([0,0,180]) motor();
     
     //pitch pulley
-    translate([-(60+2+2+8+2),0,0]) rotate([0,-90,0]) difference() {
+    *translate([-(60+2+2+8+2),0,0]) rotate([0,-90,0]) difference() {
         union() {
             gt2_pulley(32,12);
             cylinder(r=8,h=45-6-8-12);
@@ -84,7 +94,7 @@ rotate([0,$t*360,0]) {
     }
     
     //pitch bearings
-    translate([-(60+2),0,0]) rotate([0,-90,0]) {
+    *translate([-(60+2),0,0]) rotate([0,-90,0]) {
         difference() {
             union() {
                 cylinder(r=10/2,h=4);
@@ -97,16 +107,16 @@ rotate([0,$t*360,0]) {
     *#translate([-(60+2-8),0,0]) rotate([0,-90,0]) m4_co(45,false,45-6,0.01);
     
     rotate([$t*360,0,0]) {
-        rotate([0,0,90]) fdai_yaw_equator();
+        rotate([0,0,90]) !fdai_yaw_equator();
         
         //yaw motor
         *rotate([0,0,90]) translate([0,22.9,22.5]) motor();
         
-        fdai_ball_upper();
+        *fdai_ball_upper();
     }
 }
 
-!fdai_ball_upper();
+*fdai_ball_upper();
 
 
 
@@ -809,13 +819,14 @@ module fdai_yaw_equator() union() {
                 sphere(r=60,$fn=$fn*2);
                 translate([0,0,-25]) cylinder(r=(60-4)*cos(22.5),h=50);
             }
-            hull() {
+            mirror([0,1,0]) hull() {
                 translate([0,0,-25]) cylinder(r=10,h=50);
                 translate([0,22.9,-25]) cylinder(r=12.5+0.5+2.4+2,h=50);
             }
             
             translate([-10,-sqrt(pow(60-2,2)-pow(10,2)),-25]) cube([20,2*sqrt(pow(60-2,2)-pow(10,2)),50]);
-            translate([-(12.5+0.5+2.4+2),22.9,-25]) cube([2*(12.5+0.5+2.4+2),sqrt(pow(60-2,2)-pow(10,2))-22.9,50]);
+            
+            mirror([0,1,0]) translate([-(12.5+0.5+2.4+2),22.9,-25]) cube([2*(12.5+0.5+2.4+2),sqrt(pow(60-2,2)-pow(10,2))-22.9,50]);
             
             translate([0,60+2,0]) rotate([90,0,0]) cylinder(r=8,h=2*(60+2));
         }
@@ -849,31 +860,34 @@ module fdai_yaw_equator() union() {
             rotate([0,0,30]) translate([0,0,-0.4]) cylinder(r=(m4_v_r+1)/cos(30),h=50,$fn=6);
         }
         
-        
+        //cutout for pitch pivot bolt
         translate([0,60-6,0]) for(i=[0,1]) mirror([0,0,i]) m4_endnut_b_co();
-        translate([0,60-6-8,0]) rotate([-90,0,0]) hull() {
+        translate([0,60-6-10-8,0]) rotate([-90,0,0]) hull() {
             cylinder(r=m4_h_r,h=100);
             translate([-m4_h_r*tan(22.5),-m4_h_r,0]) cube([2*m4_h_r*tan(22.5),2*m4_h_r,100]);
         }
         
         //cable routing and slipring interface
         translate([0,-100,0]) rotate([-90,0,0]) hull() {
-            cylinder(r=(2.5+0.25),h=100-60+30);
-            translate([-(2.5+0.25)*tan(22.5),-(2.5+0.25),0]) cube([2*(2.5+0.25)*tan(22.5),2*(2.5+0.25),100-60+30]);
+            cylinder(r=(2.5+0.25),h=100-60+14);
+            translate([-(2.5+0.25)*tan(22.5),-(2.5+0.25),0]) cube([2*(2.5+0.25)*tan(22.5),2*(2.5+0.25),100-60+14]);
         }
-        hull() for(i=[-10,10]) translate([0,-60+30+i,0]) {
+        hull() for(i=[-60+12,-60+16]) translate([0,i,0]) {
             cylinder(r=(2.5+0.25),h=20);
             sphere(r=(2.5+0.25));
             translate([0,0,-(2.5+0.25)]) cylinder(r=(2.5+0.25)*tan(22.5),h=20+(2.5+0.25));
         }
         
+        //cutout above and below the equator
         translate([-100,-100,5]) cube([200,200,100]);
         translate([-100,-100,-100-5]) cube([200,200,100]);
         
-        translate([0,22.9,-5-1]) cylinder(r=12.5+0.5,h=1+5+24);
+        //cutout for motor body?
+        rotate([0,0,180]) translate([0,22.9,-5-1]) cylinder(r=12.5+0.5,h=1+5+24);
     }
-            
-    translate([0,22.9,-5]) difference() {
+     
+    //motor housing
+    rotate([0,0,180]) translate([0,22.9,-5]) difference() {
         union() {
             hull() {
                 cylinder(r=12.5+0.5+2.4,h=5+22.5+1.6-1);
