@@ -11,7 +11,7 @@ m4n2_v_r = m4n_v_r + 0.4; //for wedging m4 nuts in m4_co() function
 m4n_h_r = (7+0.3-0.1)/2; // radius for M4 nut cutouts (horizontal to buildplate)
 m4n2_h_r = m4n_h_r + 0.4; //for wedging m4 nuts in m4_co() function
 
-m3_v_r = (3+0.35-0.1)/2; // radius for M3 cutouts (vertical to buildplate)
+m3_v_r = (3+0.5-0.1)/2; // radius for M3 cutouts (vertical to buildplate)
 //m3n_v_r = (5.5+0.25)/2; // radius for M3 nut cutouts (vertical to buildplate)
 
 //microswitch and pivot travel parameters
