@@ -259,6 +259,7 @@ module ms() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),-10.3/2]) {
             }
             
             //actuator
+            //at pre-travel position
             hull() {
                 translate([20.1,20.7-10.3-2,0]) cylinder(r=2,h=10.3);
                 translate([20.1,2.8,0]) cylinder(r=2,h=10.3);
@@ -287,7 +288,7 @@ module ms_co_spacing() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),0]) {
     translate([22.2,-10.3,0]) children();
 }
 
-module ms_bco() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),-10.3/2]) {
+module ms_bco(include_wire_pockets=true) mirror([1,0,0]) translate([-20.1,-(20.7-10.3),-10.3/2]) {
     xr = 0.5;
     
     //body
@@ -299,7 +300,7 @@ module ms_bco() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),-10.3/2]) {
     }
     
     //connectors
-    hull() {
+    if(include_wire_pockets == true) hull() {
         translate([-2.8+1,-1,0]) {
             cylinder(r=1+xr,h=10.3);
             translate([0,0,10.3+(10+1+1)*tan(45)]) sphere(r=1+xr);
@@ -317,7 +318,7 @@ module ms_bco() mirror([1,0,0]) translate([-20.1,-(20.7-10.3),-10.3/2]) {
             translate([0,0,10.3]) sphere(r=1+xr);
         }
     }
-    hull() {
+    if(include_wire_pockets == true) hull() {
         translate([2.8-3+1,-10.3-2.8+1,1.6]) {
             cylinder(r=1+xr,h=10.3-1.6);
             translate([0,0,10.3-1.6+(5+1+1)*tan(45)]) sphere(r=1+xr);
