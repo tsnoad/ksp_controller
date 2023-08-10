@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <style>
+      html, body {
+        border: 0;
+        padding: 0;
+        background-color: black;
+        font-family: 'Roboto Mono', monospace;
+      }
+      .sk_left {
+        width: 44px;
+        height: 1024px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+      .sk_right {
+        width: 44px;
+        height: 1024px;
+        position: absolute;
+        left: 556px;
+        top: 0px;
+      }
+      /* .sk_but1, .sk_but2, .sk_but3, .sk_but4 {
+        position: relative;
+        width: 100%;
+        height: 25%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-size: 3.5vh;
+        line-height: 0.9em;
+        z-index: 1;
+      } */
+      .sk_but_text {
+        /* color: #ffffff; */
+        /* font-size: 3.5vh; */
+        /* line-height: 0.9em; */
+        /* z-index: 1; */
+      }
+      #sk_left_svg, #sk_right_svg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        z-index: 0;
+      }
+
+
+
+      .mfd_cent_low {
+        width: 512px;
+        height: 512px;
+        position: absolute;
+        left: 44px;
+        top: 512px;
+      }
+      .mfd_cent_low svg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+      }
+
+      .mfd_cent {
+        width: 512px;
+        height: 512px;
+        position: absolute;
+        left: 44px;
+        top: 0px;
+      }
+      .mfd_cent #c {
+        width: 75%;
+        height: 75%;
+        position: absolute;
+        left: 12.5%;
+        top: 12.5%;
+      }
+      .mfd_cent #crosshair {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+      }
+
+              /* <rect x="202" y="60" width="96" height="36" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);"/> */
+              /* <rect x="4" y="192" width="96" height="36" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);"/> */
+              /* <rect x="400" y="192" width="96" height="36" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);"/> */
+
+      /* .mfd_cent_head {
+        width: 19.2%;
+        height: 7.2%;
+        position: absolute;
+        left: 40.4%;
+        top: 12%;
+        color: #22ff11;
+      }
+      .mfd_cent_head_data {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5vh;
+      }
+      .mfd_cent_roll {
+        width: 19.2%;
+        height: 7.2%;
+        position: absolute;
+        left: 0.8%;
+        top: 38.4%;
+        color: #22ff11;
+      }
+      .mfd_cent_roll_data {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5vh;
+      }
+      .mfd_cent_roll_label {
+        width: 90%;
+        height: 60%;
+        position: absolute;
+        left: 10%;
+        top: -60%;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        color: #ffffff;
+        font-size: 2.5vh;
+      }
+      .mfd_cent_pitch {
+        width: 19.2%;
+        height: 7.2%;
+        position: absolute;
+        right: 0.8%;
+        top: 38.4%;
+        color: #22ff11;
+      }
+      .mfd_cent_pitch_data {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5vh;
+      }
+      .mfd_cent_pitch_label {
+        width: 90%;
+        height: 60%;
+        position: absolute;
+        right: 10%;
+        top: -60%;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        color: #ffffff;
+        font-size: 2.5vh;
+      } */
+
+      /* <rect x="2" y="28" width="128" height="46" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);"/>
+      <rect x="2" y="88" width="128" height="46" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);"/>
+      <rect x="370" y="28" width="128" height="46" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);"/>
+      <rect x="370" y="88" width="128" height="46" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);"/> */
+
+      /* .mfd_cent_alt {
+        width: 25.6%;
+        height: 9.2%;
+        position: absolute;
+        left: 0.4%;
+        top: 5.6%;
+        color: #ffff33;
+      }
+      .mfd_cent_alt_data {
+        width: 100%;
+        height: 60%;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5vh;
+      }
+      .mfd_cent_alt_label {
+        width: 100%;
+        height: 40%;
+        position: absolute;
+        left: 0%;
+        bottom: 0%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-size: 2.5vh;
+      }
+
+      .mfd_cent_surfspd {
+        width: 25.6%;
+        height: 9.2%;
+        position: absolute;
+        right: 0.4%;
+        top: 5.6%;
+        color: #ffff33;
+      }
+      .mfd_cent_surfspd_data {
+        width: 100%;
+        height: 60%;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5vh;
+      }
+      .mfd_cent_surfspd_label {
+        width: 100%;
+        height: 40%;
+        position: absolute;
+        left: 0%;
+        bottom: 0%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-size: 2.5vh;
+      }
+
+      .mfd_cent_orbvel {
+        width: 25.6%;
+        height: 9.2%;
+        position: absolute;
+        left: 0.4%;
+        top: 17.6%;
+        color: #ffff33;
+      }
+      .mfd_cent_orbvel_data {
+        width: 100%;
+        height: 60%;
+        position: absolute;
+        left: 0%;
+        bottom: 0%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5vh;
+      }
+      .mfd_cent_orbvel_label {
+        width: 100%;
+        height: 40%;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-size: 2.5vh;
+      }
+
+      .mfd_cent_accel {
+        width: 25.6%;
+        height: 9.2%;
+        position: absolute;
+        right: 0.4%;
+        top: 17.6%;
+        color: #ffff33;
+      }
+      .mfd_cent_accel_data {
+        width: 100%;
+        height: 60%;
+        position: absolute;
+        left: 0%;
+        bottom: 0%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5vh;
+      }
+      .mfd_cent_accel_label {
+        width: 100%;
+        height: 40%;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-size: 2.5vh;
+      }
+
+      .mfd_cent_stab {
+        position: absolute;
+        left: 60%;
+        top: 57%;
+        background-color: #00AA00;
+        color: #000000;
+      } */
+
+      .avg_head_txt {
+        font-family: 'Roboto Mono', monospace;
+      }
+
+
+    </style>
+</head>
+
+<body>
+
+    <!-- <canvas id="image">unsupported browser</canvas> -->
+    <div style="display: none;">H:<span id="heading"><span></div>
+    <div style="display: none;">P:<span id="pitch"><span></div>
+    <div style="display: none;">R:<span id="roll"><span></div>
+
+    <div class="sk_left">
+      <svg width="44" height="1024" id="sk_left_svg">
+        <rect x="0" y="0" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="128" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="256" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="384" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="512" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="640" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="768" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="896" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+
+        <line x1="0" y1="128" x2="44" y2="128" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+        <line x1="0" y1="256" x2="44" y2="256" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+        <line x1="0" y1="384" x2="44" y2="384" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+        <line x1="0" y1="512" x2="44" y2="512" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+        <line x1="0" y1="640" x2="44" y2="640" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+        <line x1="0" y1="768" x2="44" y2="768" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+        <line x1="0" y1="896" x2="44" y2="896" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+
+        <text x="22" y="64" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-1.2em">A</tspan><tspan x="22" dy="1.2em">T</tspan><tspan x="22" dy="1.2em">T</tspan>
+        </text>
+        <text x="22" y="192" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-1.2em">O</tspan><tspan x="22" dy="1.2em">R</tspan><tspan x="22" dy="1.2em">B</tspan>
+        </text>
+        <text x="22" y="320" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-1.2em">R</tspan><tspan x="22" dy="1.2em">E</tspan><tspan x="22" dy="1.2em">S</tspan>
+        </text>
+        <text x="22" y="448" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-1.2em">S</tspan><tspan x="22" dy="1.2em">C</tspan><tspan x="22" dy="1.2em">R</tspan>
+        </text>
+
+        <text x="22" y="576" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-1.2em">A</tspan><tspan x="22" dy="1.2em">T</tspan><tspan x="22" dy="1.2em">T</tspan>
+        </text>
+        <text x="22" y="704" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-1.2em">O</tspan><tspan x="22" dy="1.2em">R</tspan><tspan x="22" dy="1.2em">B</tspan>
+        </text>
+        <text x="22" y="832" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-1.2em">R</tspan><tspan x="22" dy="1.2em">E</tspan><tspan x="22" dy="1.2em">S</tspan>
+        </text>
+        <text x="22" y="960" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-1.2em">S</tspan><tspan x="22" dy="1.2em">C</tspan><tspan x="22" dy="1.2em">R</tspan>
+        </text>
+      </svg>
+    </div>
+
+    <div class="sk_right">
+      <svg width="44" height="1024" id="sk_right_svg">
+        <rect x="0" y="0" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="128" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="256" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="384" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="512" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="640" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="768" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+        <rect x="0" y="896" width="44" height="128" style="stroke: none; fill: rgb(0,34,51);"/>
+
+        <line x1="0" y1="128" x2="44" y2="128" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+        <line x1="0" y1="256" x2="44" y2="256" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+        <line x1="0" y1="384" x2="44" y2="384" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+        <line x1="0" y1="512" x2="44" y2="512" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+        <line x1="0" y1="640" x2="44" y2="640" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+        <line x1="0" y1="768" x2="44" y2="768" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+        <line x1="0" y1="896" x2="44" y2="896" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+
+
+        <text x="22" y="64" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-0.6em">F</tspan><tspan x="22" dy="1.2em">1</tspan>
+        </text>
+        <text x="22" y="192" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-0.6em">F</tspan><tspan x="22" dy="1.2em">2</tspan>
+        </text>
+        <text x="22" y="320" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-0.6em">F</tspan><tspan x="22" dy="1.2em">3</tspan>
+        </text>
+        <text x="22" y="448" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-0.6em">F</tspan><tspan x="22" dy="1.2em">4</tspan>
+        </text>
+
+        <text x="22" y="576" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-0.6em">F</tspan><tspan x="22" dy="1.2em">1</tspan>
+        </text>
+        <text x="22" y="704" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-0.6em">F</tspan><tspan x="22" dy="1.2em">2</tspan>
+        </text>
+        <text x="22" y="832" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-0.6em">F</tspan><tspan x="22" dy="1.2em">3</tspan>
+        </text>
+        <text x="22" y="960" dominant-baseline="middle" text-anchor="middle" class="sk_but_text" style="font-size: 16; fill: rgb(255,255,255);">
+          <tspan x="22" dy="-0.6em">F</tspan><tspan x="22" dy="1.2em">4</tspan>
+        </text>
+      </svg>
+    </div>
+
+
+
+    <div class="mfd_cent_low">
+      <svg width="512" height="512" id="">
+        <line x1="0" y1="0" x2="512" y2="0" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+
+
+        <g transform="translate(256,256)">
+          <!-- orbiting body -->
+          <g transform="translate(0,0)">
+            <circle cx="0" cy="0" r="100" style="stroke: rgb(0,255,255); stroke-width: 1; fill: none;" />
+          </g>
+
+          <!-- target path -->
+          <g transform="translate(0,0)">
+            <circle cx="0" cy="0" r="200" style="stroke: rgb(255,0,255); stroke-width: 1; fill: none;" />
+          </g>
+
+          <!-- maneuver path -->
+          <g transform="translate(0,0)">
+            <ellipse cx="40" cy="0" rx="160" ry=154.92 style="stroke: rgb(0,0,255); stroke-width: 1; fill: none;" />
+          </g>
+
+          <!-- current path -->
+          <ellipse cx="0" cy="0" rx="120" ry="120" style="stroke: rgb(0,255,0); stroke-width: 1; fill: none;" />
+
+          <!-- <g transform="translate(-200,0)">
+            <path d="M 0 0 L 5 -5 L 5 -10 L -5 -10 L -5 -5 Z" style="stroke: none; fill: rgb(0,255,255);"/>
+          </g>
+          <g transform="translate(200,0)">
+            <path d="M 0 0 L 5 -5 L 5 -10 L -5 -10 L -5 -5 Z" style="stroke: none; fill: rgb(255,127,0);"/>
+          </g>
+          <g transform="translate(0,-150) rotate(-90)">
+            <path d="M 0 0 L 5 -5 L 5 -10 L -5 -10 L -5 -5 Z" style="stroke: none; fill: rgb(0,255,0);"/>
+          </g>
+          <g transform="translate(0,150) rotate(90)">
+            <path d="M 0 0 L 5 -5 L 5 -10 L -5 -10 L -5 -5 Z" style="stroke: none; fill: rgb(0,255,0);"/>
+          </g> -->
+
+
+          <!-- <g transform="translate(-200,0)">
+            <circle cx="0" cy="0" r="4" style="stroke: rgb(0,0,255); stroke-width: 2; fill: none;" />
+
+            <g transform="rotate(90)">
+              <line x1="4" y1="0" x2="10" y2="0" style="stroke: rgb(0,0,255); stroke-width: 2; fill: none;" />
+              <circle cx="10" cy="0" r="2" style="stroke: none; fill: rgb(0,0,255);" />
+            </g>
+            <g transform="rotate(150)">
+              <line x1="4" y1="0" x2="10" y2="0" style="stroke: rgb(0,0,255); stroke-width: 2; fill: none;" />
+              <circle cx="10" cy="0" r="2" style="stroke: none; fill: rgb(0,0,255);" />
+            </g>
+            <g transform="rotate(210)">
+              <line x1="4" y1="0" x2="10" y2="0" style="stroke: rgb(0,0,255); stroke-width: 2; fill: none;" />
+              <circle cx="10" cy="0" r="2" style="stroke: none; fill: rgb(0,0,255);" />
+            </g>
+            <g transform="rotate(270)">
+              <line x1="4" y1="0" x2="10" y2="0" style="stroke: rgb(0,0,255); stroke-width: 2; fill: none;" />
+              <circle cx="10" cy="0" r="2" style="stroke: none; fill: rgb(0,0,255);" />
+            </g>
+            <g transform="rotate(330)">
+              <line x1="4" y1="0" x2="10" y2="0" style="stroke: rgb(0,0,255); stroke-width: 2; fill: none;" />
+              <circle cx="10" cy="0" r="2" style="stroke: none; fill: rgb(0,0,255);" />
+            </g>
+            <g transform="rotate(30)">
+              <line x1="4" y1="0" x2="10" y2="0" style="stroke: rgb(0,0,255); stroke-width: 2; fill: none;" />
+              <circle cx="10" cy="0" r="2" style="stroke: none; fill: rgb(0,0,255);" />
+            </g>
+          </g> -->
+        </g>
+
+
+
+        <!-- <text x="0" y="0" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 13.542645; fill: rgb(255,255,255);">
+          <tspan x="0" dy="0">000000000000000000000000000000000000000000000000000000000000000</tspan>
+        </text> -->
+        <g transform="translate(0 128)">
+          <text x="0" y="0" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">VEL:</tspan><tspan style="fill: rgb(255,255,0);"> 2.2km/s</tspan>
+          </text>
+          <text x="0" y="1.2em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">ALT:</tspan><tspan style="fill: rgb(255,255,0);">100.0 km</tspan>
+          </text>
+          <text x="0" y="2.4em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">ApA:</tspan><tspan style="fill: rgb(255,255,0);">100.0 km</tspan>
+          </text>
+          <rect x="0" y="3.6em" width="11em" height="1em" style="stroke: rgb(255,0,255); stroke-width: 1; fill: none;"/>
+          <text x="0" y="3.6em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">PeA:</tspan><tspan style="fill: rgb(255,255,0);">97.5 km</tspan>
+          </text>
+          <text x="0" y="4.8em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">INC:</tspan><tspan>&nbsp;&nbsp;</tspan><tspan style="fill: rgb(255,255,0);">0.000°</tspan>
+          </text>
+          <text x="0" y="6.0em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">ECC:</tspan><tspan>&nbsp;&nbsp;</tspan><tspan style="fill: rgb(255,255,0);">0.002</tspan>
+          </text>
+        </g>
+
+        <g transform="translate(0 416)">
+          <rect x="0" y="0" width="512" height="1em" style="stroke: rgb(192,192,192); stroke-width: 1; fill: none;"/>
+          <text x="0" y="0" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(192,192,192);">
+            <tspan>NodeT:</tspan><tspan style="fill: rgb(0,255,0);">-000:00:04:35</tspan>
+          </text>
+          <text x="224" y="0" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(192,192,192);">
+            <tspan>ΔV:</tspan><tspan style="fill: rgb(255,255,0);">480.48</tspan>
+          </text>
+          <text x="352" y="0" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(192,192,192);">
+            <tspan>BurnT:</tspan><tspan style="fill: rgb(127,127,255);">00:01:36.1</tspan>
+          </text>
+
+
+          <g transform="translate(128 512)">
+            <text x="0" y="-3.6em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+              <tspan x="0" dy="0" style="fill: rgb(127,127,127);">|ΔV</tspan>
+              <tspan x="0" dy="1.2em">|</tspan><tspan style="fill: rgb(255,255,0);">480.48</tspan>
+            </text>
+          </g>
+          <g transform="translate(256 512)">
+            <text x="0" y="-3.6em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+              <tspan x="0" dy="0" style="fill: rgb(127,127,127);">|Est.Burn T</tspan>
+              <tspan x="0" dy="1.2em">|</tspan><tspan style="fill: rgb(127,127,255);">01:36.1</tspan>
+            </text>
+          </g>
+
+        </g>
+
+        <g transform="translate(0 512)">
+          <text x="0" y="-3.6em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">ApT:</tspan><tspan style="fill: rgb(255,255,0);">00:00:32:04.6</tspan>
+          </text>
+          <rect x="0" y="-2.4em" width="11em" height="1em" style="stroke: rgb(255,0,255); stroke-width: 1; fill: none;"/>
+          <text x="0" y="-2.4em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">PeT:</tspan><tspan style="fill: rgb(255,255,0);">00:00:15:48.2</tspan>
+          </text>
+          <text x="0" y="-1.2em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">OP: </tspan><tspan style="fill: rgb(255,255,0);">00:00:32:32.9</tspan>
+          </text>
+        </g>
+
+        <g transform="translate(256 512)">
+          <rect x="0" y="-2.4em" width="11em" height="1em" style="stroke: rgb(255,0,255); stroke-width: 1; fill: none;"/>
+          <text x="0" y="-2.4em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">AnT:</tspan><tspan style="fill: rgb(255,255,0);">00:00:07:41.0</tspan>
+          </text>
+          <text x="0" y="-1.2em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">DnT:</tspan><tspan style="fill: rgb(255,255,0);">00:00:23:55.3</tspan>
+          </text>
+        </g>
+
+
+        <g transform="translate(0 0)">
+          <text x="0" y="0" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="0">ElectricCharge:</tspan>
+          </text>
+          <text x="256" y="0" dominant-baseline="hanging" text-anchor="end" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="0" style="fill: rgb(0,255,0);">585.0</tspan><tspan dx="0" dy="0">|</tspan>
+          </text>
+          <text x="320" y="0" dominant-baseline="hanging" text-anchor="end" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="0">600.00</tspan>
+          </text>
+          <rect x="320" y="-0.1em" width="64" height="1.2em" style="stroke: rgb(0,0,0); stroke-width: 1; fill: rgb(0,255,0);"/>
+          <text x="384" y="0" dominant-baseline="hanging" text-anchor="end" class="" style="font-size: 16; fill: rgb(0,0,0);">
+            <tspan dx="0" dy="0">97 %&nbsp;</tspan>
+          </text>
+          <rect x="384" y="-0.1em" width="128" height="1.2em" style="stroke: none; fill: rgb(0,191,0);"/>
+          <rect x="384" y="-0.1em" width="128" height="1.2em" style="stroke: rgb(255,255,255); stroke-width: 1; fill: none;"/>
+          <text x="512" y="0" dominant-baseline="hanging" text-anchor="end" class="" style="font-size: 16; fill: rgb(255,255,0);">
+            <tspan dx="0" dy="0">0.00&nbsp;&nbsp;</tspan>
+          </text>
+
+
+          <text x="0" y="1.2em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="0">MonoPropellant:</tspan>
+          </text>
+          <text x="256" y="1.2em" dominant-baseline="hanging" text-anchor="end" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="0" style="fill: rgb(0,255,0);">30.0</tspan><tspan dx="0" dy="0">|</tspan>
+          </text>
+          <text x="320" y="1.2em" dominant-baseline="hanging" text-anchor="end" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="0">30.00</tspan>
+          </text>
+          <rect x="320" y="1.1em" width="64" height="1.2em" style="stroke: rgb(0,0,0); stroke-width: 1; fill: rgb(0,255,0);"/>
+          <text x="384" y="1.2em" dominant-baseline="hanging" text-anchor="end" class="" style="font-size: 16; fill: rgb(0,0,0);">
+            <tspan dx="0" dy="0">100 %&nbsp;</tspan>
+          </text>
+          <rect x="384" y="1.1em" width="128" height="1.2em" style="stroke: none; fill: rgb(0,191,0);"/>
+          <rect x="384" y="1.1em" width="128" height="1.2em" style="stroke: rgb(255,255,255); stroke-width: 1; fill: none;"/>
+          <text x="512" y="1.2em" dominant-baseline="hanging" text-anchor="end" class="" style="font-size: 16; fill: rgb(255,255,0);">
+            <tspan dx="0" dy="0">0.07&nbsp;&nbsp;</tspan>
+          </text>
+
+          <text x="0" y="2.4em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="0">Fuel:</tspan>
+          </text>
+          <text x="256" y="2.4em" dominant-baseline="hanging" text-anchor="end" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="0" style="fill: rgb(0,255,0);">0.0</tspan><tspan dx="0" dy="0">|</tspan>
+          </text>
+          <rect x="320" y="2.3em" width="64" height="1.2em" style="stroke: rgb(0,0,0); stroke-width: 1; fill: rgb(0,255,0);"/>
+          <rect x="384" y="2.3em" width="128" height="1.2em" style="stroke: rgb(255,255,255); stroke-width: 1; fill: none;"/>
+          <text x="512" y="2.4em" dominant-baseline="hanging" text-anchor="end" class="" style="font-size: 16; fill: rgb(255,255,0);">
+            <tspan dx="0" dy="0">0.00&nbsp;&nbsp;</tspan>
+          </text>
+
+          <text x="0" y="3.6em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="0">Oxidizer:</tspan>
+          </text>
+          <text x="256" y="3.6em" dominant-baseline="hanging" text-anchor="end" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="0" style="fill: rgb(0,255,0);">0.0</tspan><tspan dx="0" dy="0">|</tspan>
+          </text>
+          <rect x="320" y="3.5em" width="64" height="1.2em" style="stroke: rgb(0,0,0); stroke-width: 1; fill: rgb(0,255,0);"/>
+          <rect x="384" y="3.5em" width="128" height="1.2em" style="stroke: rgb(255,255,255); stroke-width: 1; fill: none;"/>
+          <text x="512" y="3.6em" dominant-baseline="hanging" text-anchor="end" class="" style="font-size: 16; fill: rgb(255,255,0);">
+            <tspan dx="0" dy="0">0.00&nbsp;&nbsp;</tspan>
+          </text>
+
+            <!-- <tspan x="0" y="0">600.00</tspan>
+            <tspan x="0" y="0">97 %</tspan>
+            <tspan x="0" y="0">0.07</tspan>
+          </text> -->
+          <!-- <text x="0" y="1.2em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">MonoPropellant:</tspan><tspan style="fill: rgb(0,255,0);">30.0</tspan><tspan>|</tspan><tspan>30.00</tspan><tspan>100 %</tspan><tspan></tspan>
+          </text> -->
+        </g>
+
+      </svg>
+    </div>
+
+    <!-- </div> -->
+    <div class="mfd_cent">
+      <canvas id="c" width="512" height="512"></canvas>
+      <!-- <canvas id="crosshair" width="500px" height="500px"></canvas> -->
+      <svg width="512" height="512" id="crosshair">
+        <line x1="0" y1="512" x2="512" y2="512" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: none;" />
+
+        <!-- circle around navball -->
+        <!-- <circle cx="256" cy="256" r="192" style="stroke: rgb(255,255,255); stroke-width: 1; fill: none;" /> -->
+        <circle cx="256" cy="256" r="200" style="stroke: rgb(255,255,255); stroke-width: 2; fill: none;" />
+
+        <g transform="translate(-200,0) translate(256,256)">
+          <path d="M 8 0 L -6 -8 L -6 8 Z" style="stroke: none; fill: rgb(255,0,0);"/>
+        </g>
+        <g transform="translate(0,200) translate(256,256) rotate(-90)">
+          <path d="M 8 0 L -6 -8 L -6 8 Z" style="stroke: none; fill: rgb(255,0,0);"/>
+        </g>
+        <g transform="translate(200,0) translate(256,256) rotate(180)">
+          <path d="M 8 0 L -6 -8 L -6 8 Z" style="stroke: none; fill: rgb(255,0,0);"/>
+        </g>
+        <g transform="translate(256,0)">
+          <path d="M 0 12 L 6 2 L -6 2 Z" style="stroke: none; fill: rgb(255,0,0);"/>
+        </g>
+
+
+
+
+        <g transform="translate(256,0) translate(200,0)">
+          <g transform="translate(0,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">180</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(56,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">200</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(112,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">220</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(168,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">240</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(224,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">260</text>
+            <g transform="translate(28,32)">
+              <path d="M 0 0 L -4 -6 L 4 -6 Z" style="stroke: none; fill: rgb(255,0,0);"/>
+            </g>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(280,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">280</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(336,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">300</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(392,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">320</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(448,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">340</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+
+
+
+          <g transform="translate(-56,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">160</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(-112,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">140</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(-168,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">120</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(-224,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">100</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(-280,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">80</text>
+            <g transform="translate(28,32)">
+              <path d="M 0 0 L -4 -6 L 4 -6 Z" style="stroke: none; fill: rgb(255,0,0);"/>
+            </g>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(-336,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">60</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(-392,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">40</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+          <g transform="translate(-448,0)">
+            <text x="0" y="28" dominant-baseline="baseline" text-anchor="middle" class="avg_head_txt" style="font-size: 10; fill: rgb(255,255,255);">20</text>
+            <line x1="0" y1="30" x2="0" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+            <line x1="28" y1="34" x2="28" y2="40" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);" />
+          </g>
+        </g>
+
+        <!-- crosshairs -->
+        <g transform="translate(256,256)">
+          <path d="M -34 0 L -20 0 L 0 20 L 0 67 M 0 20 L 20 0 L 34 0 M 0 -19 L 0 -67" style="stroke: rgb(0,0,0); stroke-width: 6; fill: none;"/>
+          <path d="M -34 0 L -20 0 L 0 20 L 0 66 M 0 20 L 20 0 L 34 0 M 0 -20 L 0 -66" style="stroke: rgb(0,255,0); stroke-width: 4; fill: none;"/>
+          <rect x="-90" y="-4" width="56" height="8" style="stroke: rgb(0,0,0); stroke-width: 1.5; fill: none;"/>
+          <rect x="34" y="-4" width="56" height="8" style="stroke: rgb(0,0,0); stroke-width: 1.5; fill: none;"/>
+        </g>
+
+        <!-- dot in center of crosshairs -->
+        <circle cx="256" cy="256" r="4" style="stroke: rgb(255,0,0); stroke-width: 2; fill: none;" />
+
+        <!-- heading pitch and roll -->
+        <g transform="translate(207,40)">
+          <rect x="0" y="0" width="98" height="42" rx="8" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);"/>
+          <text x="49" y="21" dominant-baseline="middle" text-anchor="middle" class="" style="font-size: 16; fill: rgb(0,255,0);">
+            <tspan dx="0" dy="0">269.9°</tspan>
+          </text>
+        </g>
+
+        <g transform="translate(8,192)">
+          <rect x="0" y="0" width="98" height="42" rx="8" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);"/>
+          <text x="8" y="-4" dominant-baseline="auto" text-anchor="start" class="" style="font-size: 12; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="0">ROLL</tspan>
+          </text>
+          <text x="49" y="21" dominant-baseline="middle" text-anchor="middle" class="" style="font-size: 16; fill: rgb(0,255,0);">
+            <tspan dx="0" dy="0">-090.5°</tspan>
+          </text>
+        </g>
+
+        <g transform="translate(408,192)">
+          <rect x="0" y="0" width="96" height="36" rx="8" style="stroke: rgb(255,255,255); stroke-width: 1.5; fill: rgb(0,0,0);"/>
+          <text x="88" y="-4" dominant-baseline="auto" text-anchor="end" class="" style="font-size: 12; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="0">PITCH</tspan>
+          </text>
+          <text x="49" y="21" dominant-baseline="middle" text-anchor="middle" class="" style="font-size: 16; fill: rgb(0,255,0);">
+            <tspan dx="0" dy="0">046.2°</tspan>
+          </text>
+        </g>
+
+        <!-- alt, orb vel, srf speed and accel -->
+        <g transform="translate(0,0)">
+          <rect x="0" y="0" width="134" height="52" rx="2" style="stroke: rgb(22,51,85); stroke-width: 1.5; fill: rgb(0,0,0);"/>
+          <text x="64" y="46" dominant-baseline="auto" text-anchor="middle" class="" style="font-size: 12; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="-4">ALTITUDE</tspan>
+          </text>
+          <text x="64" y="23" dominant-baseline="middle" text-anchor="middle" class="" style="font-size: 16; fill: rgb(255,255,0);">
+            <tspan dx="0" dy="-4">100.0km</tspan>
+          </text>
+        </g>
+
+        <g transform="translate(0,68)">
+          <rect x="0" y="0" width="134" height="52" rx="2" style="stroke: rgb(22,51,85); stroke-width: 1.5; fill: rgb(0,0,0);"/>
+          <text x="64" y="0" dominant-baseline="hanging" text-anchor="middle" class="" style="font-size: 12; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="4">ORB.VELOCITY</tspan>
+          </text>
+          <text x="64" y="23" dominant-baseline="middle" text-anchor="middle" class="" style="font-size: 16; fill: rgb(255,255,0);">
+            <tspan dx="0" dy="4">2.2 km</tspan>
+          </text>
+        </g>
+
+        <g transform="translate(378,0)">
+          <rect x="0" y="0" width="134" height="52" rx="2" style="stroke: rgb(22,51,85); stroke-width: 1.5; fill: rgb(0,0,0);"/>
+          <text x="64" y="46" dominant-baseline="auto" text-anchor="middle" class="" style="font-size: 12; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="-4">SRF.SPEED</tspan>
+          </text>
+          <text x="64" y="23" dominant-baseline="middle" text-anchor="middle" class="" style="font-size: 16; fill: rgb(255,255,0);">
+            <tspan dx="0" dy="-4">2.0km/s</tspan>
+          </text>
+        </g>
+
+        <g transform="translate(378,68)">
+          <rect x="0" y="0" width="134" height="52" rx="2" style="stroke: rgb(22,51,85); stroke-width: 1.5; fill: rgb(0,0,0);"/>
+          <text x="64" y="0" dominant-baseline="hanging" text-anchor="middle" class="" style="font-size: 12; fill: rgb(255,255,255);">
+            <tspan dx="0" dy="4">ACCEL.</tspan>
+          </text>
+          <text x="64" y="23" dominant-baseline="middle" text-anchor="middle" class="" style="font-size: 16; fill: rgb(255,255,0);">
+            <tspan dx="0" dy="4">0m/s</tspan>
+          </text>
+        </g>
+
+
+
+        <g transform="translate(0 144)">
+          <text x="0" y="0" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">SPD.MODE: </tspan><tspan style="fill: rgb(63,63,255);">ORB</tspan>
+          </text>
+        </g>
+
+
+        <g transform="translate(192 288)">
+          <rect x="-85.33" y="0" width="85.33" height="1em" style="font-size: 18.05686; stroke: rgb(191,191,191); stroke-width: 0.4em; fill: rgb(191,191,191);"/>
+          <text x="0" y="0" dominant-baseline="hanging" text-anchor="end" class="" style="font-size: 18.05686; fill: rgb(0,0,0);">
+            <tspan x="0" dy="0">TWR:1.76</tspan>
+          </text>
+        </g>
+
+        <g transform="translate(320 288)">
+          <rect x="0" y="0" width="117.3333333" height="1em" style="font-size: 18.05686; stroke: rgb(0,255,0); stroke-width: 0.4em; fill: rgb(0,255,0);"/>
+          <text x="0" y="0" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 18.05686; fill: rgb(0,0,0);">
+            <tspan x="0" dy="0">&gt; STAB ON &lt;</tspan>
+          </text>
+        </g>
+        <g transform="translate(320 320)">
+          <rect x="0" y="0" width="85.33" height="1em" style="font-size: 18.05686; stroke: rgb(223,223,0); stroke-width: 0.4em; fill: rgb(223,223,0);"/>
+          <text x="0" y="0" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 18.05686; fill: rgb(0,0,0);">
+            <tspan x="0" dy="0">PROGRADE</tspan>
+          </text>
+        </g>
+        <g transform="translate(320 352)">
+          <rect x="0" y="0" width="65" height="1em" style="font-size: 18.05686; stroke: rgb(255,63,255); stroke-width: 0.4em; fill: rgb(255,63,255);"/>
+          <text x="0" y="0" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 18.05686; fill: rgb(0,0,0);">
+            <tspan x="0" dy="0">TARGET</tspan>
+          </text>
+        </g>
+        <g transform="translate(320 384)">
+          <rect x="0" y="0" width="85.33" height="1em" style="font-size: 18.05686; stroke: rgb(91,91,255); stroke-width: 0.4em; fill: rgb(91,91,255);"/>
+          <text x="0" y="0" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 18.05686; fill: rgb(0,0,0);">
+            <tspan x="0" dy="0">MANEUVER</tspan>
+          </text>
+        </g>
+
+        <g transform="translate(0 512)">
+          <text x="0" y="-1.2em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">R.ALT: </tspan><tspan style="fill: rgb(255,255,0);">101 km</tspan>
+          </text>
+        </g>
+        <g transform="translate(171 512)">
+          <text x="0" y="-1.2em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">H.SPD: </tspan><tspan style="fill: rgb(255,255,0);">2.04 km/s</tspan>
+          </text>
+        </g>
+        <g transform="translate(341 512)">
+          <text x="0" y="-1.2em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0">V.SPD: </tspan><tspan style="fill: rgb(255,0,0);">-0.5 m/s</tspan>
+          </text>
+        </g>
+
+        <g transform="translate(0 512)">
+          <text x="0" y="-3.6em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0" style="fill: rgb(127,127,127);">Node in T</tspan>
+            <tspan x="0" dy="1.2em" style="fill: rgb(0,255,0);">-0:04:35.5</tspan>
+          </text>
+        </g>
+        <g transform="translate(128 512)">
+          <text x="0" y="-3.6em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0" style="fill: rgb(127,127,127);">|ΔV</tspan>
+            <tspan x="0" dy="1.2em">|</tspan><tspan style="fill: rgb(255,255,0);">480.48</tspan>
+          </text>
+        </g>
+        <g transform="translate(256 512)">
+          <text x="0" y="-3.6em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0" style="fill: rgb(127,127,127);">|Est.Burn T</tspan>
+            <tspan x="0" dy="1.2em">|</tspan><tspan style="fill: rgb(127,127,255);">01:36.1</tspan>
+          </text>
+        </g>
+        <g transform="translate(384 512)">
+          <text x="0" y="-3.6em" dominant-baseline="hanging" text-anchor="start" class="" style="font-size: 16; fill: rgb(255,255,255);">
+            <tspan x="0" dy="0" style="fill: rgb(127,127,127);">|THRTL</tspan>
+            <tspan x="0" dy="1.2em">|</tspan><tspan style="fill: rgb(255,127,63);">0 %</tspan>
+          </text>
+        </g>
+        <!-- <svg width="512" height="512" id="crosshair">
+          <rect x="0" y="0" width="512" height="512" style="stroke: none; fill: rgb(0,0,0);"/>
+          <g transform="translate(256 256)">
+            <text x="0" y="0" dominant-baseline="middle" text-anchor="middle" class="" style="font-size: 18.05686; fill: rgb(255,255,255);">
+              <tspan x="0" dy="0">NO CONNECTION</tspan>
+            </text>
+          </g>
+        </svg> -->
+
+
+
+
+
+      </svg>
+
+      <!-- <div class="mfd_cent_head">
+        <div class="mfd_cent_head_data" id="mfd_cent_head_data">103.1°</div>
+      </div>
+      <div class="mfd_cent_pitch">
+        <div class="mfd_cent_pitch_data" id="mfd_cent_pitch_data">001.2°</div>
+        <div class="mfd_cent_pitch_label">PITCH</div>
+      </div>
+      <div class="mfd_cent_roll">
+        <div class="mfd_cent_roll_data" id="mfd_cent_roll_data">091.7°</div>
+        <div class="mfd_cent_roll_label">ROLL</div>
+      </div> -->
+
+
+      <!-- <div class="mfd_cent_alt">
+        <div class="mfd_cent_alt_data" id="mfd_cent_alt_data">79.5 Km</div>
+        <div class="mfd_cent_alt_label">ALTITUDE</div>
+      </div>
+      <div class="mfd_cent_surfspd">
+        <div class="mfd_cent_surfspd_data" id="mfd_cent_surfspd_data">609m/s</div>
+        <div class="mfd_cent_surfspd_label">SURF.SPEED</div>
+      </div>
+      <div class="mfd_cent_orbvel">
+        <div class="mfd_cent_orbvel_data" id="mfd_cent_orbvel_data">719.0 m</div>
+        <div class="mfd_cent_orbvel_label">ORB.VELOCITY</div>
+      </div>
+      <div class="mfd_cent_accel">
+        <div class="mfd_cent_accel_data" id="mfd_cent_accel_data">0m/s</div>
+        <div class="mfd_cent_accel_label">ACCEL.</div>
+      </div>
+      <div class="mfd_cent_mode"></div>
+
+      <div class="mfd_cent_stab">&gt;STAB ON&lt;</div> -->
+    <div>
+
+    <!-- <canvas id="ol" width="500px" height="500px"></canvas> -->
+
+    <script type="module">
+
+function setuppanel() {
+  // var c = document.getElementById("crosshair");
+  // var ctx = c.getContext("2d");
+  //
+  // ctx.beginPath();
+  // ctx.moveTo(0,0);
+  // ctx.lineTo(500, 500);
+  // ctx.linewidth = 10;
+  // ctx.strokeStyle = 'red';
+  // ctx.stroke();
+}
+
+    import * as THREE from 'https://threejs.org/build/three.module.js';
+
+    var sphere;
+    var renderer;
+    var scene;
+    var camera;
+
+    var heading;
+    var pitch;
+    var roll;
+
+    function main() {
+      const canvas = document.querySelector('#c');
+      renderer = new THREE.WebGLRenderer({canvas});
+
+      //const fov = 75;
+      //const aspect = 2;  // the canvas default
+      const near = 0.1;
+      const far = 5;
+      //const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+      camera = new THREE.OrthographicCamera( -1, 1, 1, -1, near, far);
+      camera.position.z = 2;
+
+      scene = new THREE.Scene();
+
+      const boxWidth = 1;
+      const boxHeight = 1;
+      const boxDepth = 1;
+      //const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+      const geometry = new THREE.SphereGeometry(1, 36, 36);
+
+      const loader = new THREE.TextureLoader();
+      //loader.setCrossOrigin('anonymous');
+
+      const material = new THREE.MeshBasicMaterial({
+        //color: 0xFF8844,
+        map: loader.load('https://i.imgur.com/pF3BC6V.png'),
+      });
+
+      //const material = new THREE.MeshBasicMaterial({color: 0x44aa88});  // greenish blue
+
+
+
+
+      //const cube = new THREE.Mesh(geometry, material);
+      sphere = new THREE.Mesh(geometry, material);
+      //scene.add(cube);
+      scene.add(sphere);
+
+
+
+
+    function render(time) {
+        //time *= 0.001;  // convert time to seconds
+
+        // sphere.setRotationFromAxisAngle(new THREE.Vector3(1, 1, 1).normalize(), 0);
+        sphere.rotateOnAxis(new THREE.Vector3(0, 0, 1).normalize(), 0.005);
+        sphere.rotateOnAxis(new THREE.Vector3(0, 1, 0).normalize(), 0.005);
+        sphere.rotateOnAxis(new THREE.Vector3(1, 0, 0).normalize(), 0.005);
+        //console.log(parseFloat(document.getElementById("pitch").textContent));
+
+        renderer.render(scene, camera);
+
+        requestAnimationFrame(render);
+      }
+      requestAnimationFrame(render);
+    }
+
+    main();
+    setuppanel();
+
+
+        var ws = new WebSocket('ws://localhost:8080');
+
+        ws.onopen = () => {
+            console.log("Connected")
+        };
+
+        ws.onmessage = (evt) => {
+/*            // re-create(?) blob data from websocket
+            var blob = new Blob([evt.data], {
+                type: 'image/jpg' // -> MIME TYPES OF IMAGES GOES HERE
+            });
+
+            // create blob url
+            var url = URL.createObjectURL(blob);
+
+            var image = document.getElementById("image");
+            var img = new Image(0, 0);
+
+            img.onload = () => {
+
+                // get canvas context
+                let ctx = image.getContext("2d");
+
+                ctx.clearRect(0, 0, image.width, image.height);
+                ctx.drawImage(img, 0, 0);
+
+            };
+
+            img.src = url;*/
+
+            var blob = new Blob([evt.data], {
+                type: 'text/plain' // -> MIME TYPES OF IMAGES GOES HERE
+            });
+
+            const reader = new FileReader();
+
+            // This fires after the blob has been read/loaded.
+            reader.addEventListener('loadend', (e) => {
+              var text = e.srcElement.result.split(",");
+              //console.log(text);
+
+              /*var pitch_elem = document.getElementById("pitch");
+              pitch_elem.textContent = text[0];
+              var head_elem = document.getElementById("heading");
+              head_elem.textContent = text[1];
+              var roll_elem = document.getElementById("roll");
+              roll_elem.textContent = text[2];*/
+
+              pitch = parseFloat(text[0]).toPrecision(1);
+              heading = ((parseFloat(text[1])) % 360).toPrecision(4);
+              roll = (-parseFloat(text[2]).toPrecision(1) - 90);
+
+              // console.log(heading);
+
+              sphere.setRotationFromAxisAngle(new THREE.Vector3(1, 1, 1).normalize(), 0);
+
+              //roll
+              sphere.rotateOnAxis(new THREE.Vector3(0, 0, 1).normalize(), roll*3.14159/180);
+
+              //heading
+              sphere.rotateOnAxis(new THREE.Vector3(1, 0, 0).normalize(), heading*3.14159/180);
+
+              //pitch
+              sphere.rotateOnAxis(new THREE.Vector3(0, 1, 0).normalize(), pitch*3.14159/180);
+
+              renderer.render(scene, camera);
+
+              setuppanel();
+            });
+
+            reader.readAsText(blob);
+        };
+
+    </script>
+
+</body>
+
+</html>
